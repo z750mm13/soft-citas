@@ -2,17 +2,23 @@
 
 @section('content')
 <div class="container">
+    <div class="vertical-buffer">
+        <h1>Unidad médica rural IMSS bienestar<br>San Juan Teponaxtla</h1>
+        <h2 id="bienvenida">Bienvenida(o)</h2>
+        <hr class="red">
+        <p>Portal para el control de información sobre citas, consultas y medicamentos de la unidad médica rural IMSS bienestar San Juan Teponaxtla.</p>
+    </div>
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+                <div class="card-header">{{ __('Registro') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Nombre') }}</label>
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
