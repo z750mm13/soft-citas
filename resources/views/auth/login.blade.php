@@ -10,7 +10,7 @@
     </div>
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
+            <div class="card mb-5">
                 <div class="card-header">{{ __('Iniciar sesión') }}</div>
 
                 <div class="card-body">
@@ -75,6 +75,10 @@
                     </form>
                 </div>
             </div>
+        </div>
+        <div class="alert alert-info">
+            <strong>Aviso</strong>
+            <p>Revise que sus datos sean correctos y concuerden con los que proporcionó previamente.</p>
         </div>
     </div>
 </div>
