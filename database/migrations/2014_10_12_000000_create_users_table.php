@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersTable extends Migration
-{
+class CreateUsersTable extends Migration {
     /**
      * Run the migrations.
      *
@@ -17,9 +16,12 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('lastname');
             $table->string('postlastname');
+            $table->boolean('active')->default(false);
+            $table->boolean('admin')->default(false);
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->enum('rol',['Encargado de la unidad','Enfermería'])->default('Enfermería');
+            $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

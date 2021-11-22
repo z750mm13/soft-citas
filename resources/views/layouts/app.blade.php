@@ -10,7 +10,9 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
+    @stack('prejs')
     <script src="{{ asset('js/app.js') }}" defer></script>
+    @stack('postjs')
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -18,6 +20,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('resources/styles/main.css') }}" rel="stylesheet">
+    @stack('css')
 </head>
 <body>
     <div id="app">
@@ -64,7 +67,7 @@
         </nav>
 
         
-        <main class="py-4">
+        <main>
             @yield('content')
         </main>
 
@@ -121,15 +124,6 @@
                             <h5>
                                 <a href="https://www.gob.mx/tramites/ficha/presentacion-de-quejas-y-denuncias-en-la-sfp/SFP54">Denuncia contra servidores públicos</a>
                             </h5>
-                            <h5>Síguenos en</h5>
-                            <ul class="list-inline">
-                                <li>
-                                    <a class="social-icon facebook" target="_blank" rel="noopener" title="Enlace abre en ventana nueva" href="https://www.facebook.com/gobmexico" aria-label="Facebook de presidencia"></a>
-                                </li>
-                                <li>
-                                    <a class="social-icon twitter" target="_blank" rel="noopener" title="Enlace abre en ventana nueva" href="https://twitter.com/GobiernoMX" aria-label="Twitter de presidencia"></a>
-                                </li>
-                            </ul>
                         </div>
                     </div>
                 </div>
