@@ -20,6 +20,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('resources/styles/main.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendor/awesomefont/css/all.css') }}" rel="stylesheet">
     @stack('css')
 </head>
 <body>
@@ -43,6 +44,9 @@
                                 </li>
                             @endif
                         @else
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('patients.index') }}">{{ __('Pacientes') }}</a>
+                        </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
