@@ -16,7 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::resource('patients', PatientController::class);
-Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('patients', PatientController::class)->middleware('auth');
+
+Auth::routes();

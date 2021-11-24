@@ -10,7 +10,6 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    @stack('prejs')
     <script src="{{ asset('js/app.js') }}" defer></script>
     @stack('postjs')
 
@@ -141,5 +140,6 @@
             </div>
         </footer>
     </div>
+    @stack('js')
 </body>
 </html>
