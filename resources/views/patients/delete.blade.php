@@ -12,8 +12,12 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-              <button type="button" class="btn btn-primary">Eliminar</button>
+              <button type="submit" form="formDelete" class="btn btn-primary" >Eliminar</button>
             </div>
         </div>
     </div>
 </div>
+<form id="formDelete" action="{{ route('patients.destroy',[0]) }}" id="delete-form" method="post" style="display:none">
+    @csrf
+    <input type="hidden" name="_method" value="delete">
+</form>
