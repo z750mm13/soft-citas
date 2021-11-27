@@ -24,7 +24,7 @@
                     <h5 class="card-title mb-0">Pacientes</h5>
                 </div>
                 <div class="col-5 text-right">
-                    <button type="button" data-toggle="modal" data-target="#patientForm" data-title="Agregar" onclick="clear()" class="btn btn-sm btn-primary">Agregar paciente</button>
+                    <button type="button" data-toggle="modal" data-target="#patientForm" data-title="Agregar" onclick="clearFields()" class="btn btn-sm btn-primary">Agregar paciente</button>
                 </div>
             </div>
 
@@ -107,7 +107,7 @@
         $("#imc").val(patients[id].imc);
         $("#method").val("PUT");
   }
-  function clear(){
+  function clearFields(){
         $("#patient").attr("action","{{ route('patients.store') }}");
         $("#name").val("");
         $("#lastname").val("");
