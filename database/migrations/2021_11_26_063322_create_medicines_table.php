@@ -15,8 +15,8 @@ class CreateMedicinesTable extends Migration {
             $table->id();
             $table->string('name');
             $table->date('expiration');
-            $table->number('barcode');
-            $table->number('stock');
+            $table->string('barcode');
+            $table->integer('stock');
             $table->timestamps();
         });
     }
