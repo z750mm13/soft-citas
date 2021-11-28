@@ -24,16 +24,15 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-dark bg-light navbar-inverse navbar-fixed-top">
+        <nav class="navbar navbar-dark bg-dark navbar-expand-md navbar-fixed-top">
             <div class="container">
-                <div class="d-flex align-items-center">
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#subNavBarDropdown" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#subNavBarDropdown" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <a class="navbar-brand" href="https://www.gob.mx/" aria-label="Para hacer este sitio web accesible al lector de pantalla, Oprima alt + 1. Para dejar de recibir este mensaje, oprima alt + 2"><img src="https://framework-gb.cdn.gob.mx/landing/img/logoheader.svg" width="128" height="48" alt="Página de inicio, Gobierno de México"></a>
             
-                <div class="collapse navbar-collapse col" id="subNavBarDropdown">
-                    <ul class="navbar-nav nav-pills margen">
+                <div class="collapse navbar-collapse" id="subNavBarDropdown">
+                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                         @guest
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Iniciar sesión') }}</a>
@@ -70,10 +69,8 @@
                         @endguest
                     </ul>
                 </div>
-                </div>
             </div>
         </nav>
-
         
         <main>
             @yield('content')
