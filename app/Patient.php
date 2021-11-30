@@ -13,4 +13,8 @@ class Patient extends Model {
     protected $fillable = [
         'name','lastname','postlastname','gender','age','address','weight','size','imc'
     ];
+
+    public function appointments() {
+        return $this -> hasMany('App\Appointment');
+    }
 }

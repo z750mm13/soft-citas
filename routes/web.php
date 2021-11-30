@@ -21,5 +21,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('patients', PatientController::class)->middleware('auth');
 Route::resource('medicines', MedicineController::class)->middleware('auth');
+Route::resource('appointments', AppointmentController::class)->middleware('auth');
 
 Auth::routes();

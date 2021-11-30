@@ -44,6 +44,9 @@
                             @endif
                         @else
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ route('appointments.index') }}">{{ __('Citas') }}</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ route('patients.index') }}">{{ __('Pacientes') }}</a>
                         </li>
                         <li class="nav-item">
