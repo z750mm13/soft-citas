@@ -17,9 +17,9 @@
         <p>Apartado de control de citas. En este apartado usted puede dar de alta las citas ademas de modificarlas o eliminarlas.</p>
     </div>
 
-    <form class="mb-4">
+    <form>
       <div class="row">
-        <div class="col">
+        <div class="col-md-4 col-sm-12 mb-4">
           <select class="form-control @error('patient_id') is-invalid @enderror" id="spatient_id" name="patient_id">
             <option value="">Seleccione al paciente</option>
             @foreach($patients as $patient)
@@ -27,7 +27,7 @@
             @endforeach
           </select>
         </div>
-        <div class="col">
+        <div class="col-md-4 col-sm-12 mb-4">
           <select class="form-control @error('user_id') is-invalid @enderror" id="suser_id" name="user_id">
             <option value="">Seleccione al encargada(o)</option>
             @foreach($doctors as $doctor)
@@ -35,10 +35,12 @@
             @endforeach
         </select>
         </div>
-        <div class="col">
+        <div class="col-md-3 col-sm-12 mb-4">
           <input type="date" class="form-control" placeholder="Fecha" name="date" id="sdate">
         </div>
-        <button type="submint" class="btn btn-sm btn-primary">Filtrar</button>
+        <div class="col-md-1 col-sm-12 mb-4 text-right">
+          <button type="submint" class="btn btn-sm btn-primary">Filtrar</button>
+        </div>
       </div>
     </form>
 
