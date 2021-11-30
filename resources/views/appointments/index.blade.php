@@ -69,17 +69,18 @@
                     <tbody>
                       @foreach($appointments as $appointment)
                       <tr>
-                        <th>{{$appointment->type}}</th>
+                        <th><i class="far fa-clock"></i> <i class="fas fa-check"></i> <i class="fas fa-times"></i> {{$appointment->type}}</th>
                         <td>{{$appointment->patient->name.' '.$appointment->patient->lastname}}</td>
                         <td>{{$appointment->user->name.' '.$appointment->user->lastname}}</td>
-                        <td>{{$appointment->datetime}}</td>
+                        <td>{{$appointment->datetime->format('d-m-Y H:i')}}</td>
                         <td>
                           <div class="dropdown">
                               <button class="btn btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                   <i class="fas fa-ellipsis-v"></i>
                               </button>
                               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <button data-toggle="modal" data-target="#appointmentForm" data-title="Editar" onclick="setValues({{$index}})" class="dropdown-item"><i class="fas fa-pen"></i> Realizar</button>
+                                {{-- TODO: hacer el acceos a la receta --}}
+                                <button data-toggle="modal" data-target="#appointmentForm" data-title="Editar" onclick="setValues({{$index}})" class="dropdown-item"><i class="far fa-edit"></i> Realizar</button>
                                 <button data-toggle="modal" data-target="#appointmentForm" data-title="Editar" onclick="setValues({{$index}})" class="dropdown-item"><i class="fas fa-pen"></i> Editar</button>
                                 <button data-toggle="modal" data-target="#deleteAppointment" class="dropdown-item" onclick="deleteElement({{$index}})"><i class="fas fa-trash-alt"></i> Eliminar</button>
                               </div>
