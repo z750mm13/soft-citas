@@ -7,7 +7,7 @@ use App\Medicine;
 
 class MedicineController extends Controller {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the resource. Das medicine.
      *
      * @return \Illuminate\Http\Response
      */
