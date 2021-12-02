@@ -82,7 +82,7 @@
                               </button>
                               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 {{-- TODO: hacer el acceos a la receta --}}
-                                <button data-toggle="modal" data-target="#appointmentForm" data-title="Editar" onclick="setValues({{$index}})" class="dropdown-item"><i class="far fa-edit"></i> Realizar</button>
+                                <a href="/consultations/{{$appointment->id}}/create" class="text-decoration-none"><button class="dropdown-item"><i class="far fa-edit"></i> Realizar</button></a>
                                 <button data-toggle="modal" data-target="#appointmentForm" data-title="Editar" onclick="setValues({{$index}})" class="dropdown-item"><i class="fas fa-pen"></i> Editar</button>
                                 <button data-toggle="modal" data-target="#deleteAppointment" class="dropdown-item" onclick="deleteElement({{$index}})"><i class="fas fa-trash-alt"></i> Eliminar</button>
                               </div>

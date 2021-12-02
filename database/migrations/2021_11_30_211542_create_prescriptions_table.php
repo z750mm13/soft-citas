@@ -11,13 +11,13 @@ class CreatePrescriptionsTable extends Migration
      *
      * @return void
      */
-    public function up()
-    {
+    public function up() {
         Schema::create('prescriptions', function (Blueprint $table) {
             $table->id();
             $table->string('dose');
             $table->string('description');
             $table->bigInteger('consultation_id')->unsigned();
+            $table->bigInteger('medicine_id')->unsigned();
             $table->timestamps();
         });
     }
@@ -27,8 +27,7 @@ class CreatePrescriptionsTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
+    public function down() {
         Schema::dropIfExists('prescriptions');
     }
 }
