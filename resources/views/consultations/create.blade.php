@@ -154,7 +154,9 @@
 
       // Añade el clon
       preguntaid++;
+      $clone.hide();
       $clone.appendTo('#medicamentos');
+      $clone.show('fast');
     });
   }
 function deleteCard(card) {
