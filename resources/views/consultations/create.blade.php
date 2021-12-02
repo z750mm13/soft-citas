@@ -52,13 +52,13 @@
                     <hr class="red">
                 </div>
   
-                <div id="peligros">
+                <div id="medicamentos">
                     <div class="form-group" id="card0">
                         <div class="card">
-                            <div class="card-body">
+                            <div class="card-body mx-3">
                                 <div class="d-flex justify-content-between">
                                     <div>
-                                        <label for="nf">Peligro:</label>
+                                        <label for="nf">Medicamento</label>
                                     </div>
                                     <div>
                                         <button type="button" class="close" onclick="deleteCard(0)">
@@ -66,7 +66,24 @@
                                         </button>
                                     </div>
                                 </div>
-                                <input type="text" name="peligros[]" class="form-control" placeholder="Peligro">
+                                <div class="form-row">
+                                    <div class="col-md-4 mb-4">
+                                        <label for="inputState">Medicamento</label>
+                                        <select id="inputState" class="form-control">
+                                            <option selected="selected">Choose...</option>
+                                            <option>...</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="inputCity">Dosis</label>
+                                        <input type="text" id="inputCity" class="form-control">
+                                    </div>
+                                    <div class="col-md-5">
+                                        <label for="inputZip">Indicaciones</label>
+                                        <input type="text" id="inputZip" class="form-control">
+                                    </div>
+                                </div>
+                                <input type="text" name="medicamentos[]" class="form-control" placeholder="Peligro">
                                 <label for="nf">Tipo:</label>
                                 <br>
                                 <div class="custom-control custom-radio custom-control-inline">
@@ -86,6 +103,7 @@
                     <a class="col-md-12 btn btn-light btn-lg" id="clone" role="button"><i class="fas fa-plus"></i></a>
                 </div>
                 <br>
+
                 <div class="form-group col-12">
                   <input type="submit"  class="btn btn-primary " name="submit"  value="Guardar">
                 </div>
@@ -106,7 +124,7 @@
   document.body.onload = function() {
     $("#clone").click(function () {
       // Clona peligos
-      var $clone = $('#peligros .form-group').last().clone();
+      var $clone = $('#medicamentos .form-group').last().clone();
       // Borra los valores de los inputs clonados
       $clone.find(':input').each(function () {
         if (this.type == 'radio'){
@@ -136,7 +154,7 @@
 
       // Añade el clon
       preguntaid++;
-      $clone.appendTo('#peligros');
+      $clone.appendTo('#medicamentos');
     });
   }
 function deleteCard(card) {
