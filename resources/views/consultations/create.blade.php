@@ -69,30 +69,19 @@
                                 <div class="form-row">
                                     <div class="col-md-4 mb-4">
                                         <label for="inputState">Medicamento</label>
-                                        <select id="inputState" class="form-control">
+                                        <select id="inputState" class="form-control" name="medicamentos[]">
                                             <option selected="selected">Choose...</option>
                                             <option>...</option>
                                         </select>
                                     </div>
                                     <div class="col-md-3">
                                         <label for="inputCity">Dosis</label>
-                                        <input type="text" id="inputCity" class="form-control">
+                                        <input type="text" id="inputCity" name="dosis[]" class="form-control">
                                     </div>
                                     <div class="col-md-5">
                                         <label for="inputZip">Indicaciones</label>
-                                        <input type="text" id="inputZip" class="form-control">
+                                        <input type="text" id="inputZip" name="indicaciones[]" class="form-control">
                                     </div>
-                                </div>
-                                <input type="text" name="medicamentos[]" class="form-control" placeholder="Peligro">
-                                <label for="nf">Tipo:</label>
-                                <br>
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="tipo0" name="pregunta0" class="custom-control-input" value="Seguridad">
-                                    <label type="rlabel" class="custom-control-label" for="tipo0">Seguridad</label>
-                                </div>
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="tipo1" name="pregunta0" class="custom-control-input" value="Salud">
-                                    <label type="rlabel" class="custom-control-label label0" for="tipo1">Salud</label>
                                 </div>
                             </div>
                         </div>
