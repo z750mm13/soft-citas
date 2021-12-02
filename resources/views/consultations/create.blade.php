@@ -159,7 +159,7 @@
   }
 function deleteCard(card) {
     if(card != 0)
-    $('#card'+card).hide('fast','linear','slow', function(){ $('#card'+card).remove(); });
+    $('#card'+card).hide('fast', function(){ $('#card'+card).remove(); });
 }
 </script>
 @endpush
