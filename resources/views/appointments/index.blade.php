@@ -71,7 +71,14 @@
                     <tbody>
                       @foreach($appointments as $appointment)
                       <tr>
-                        <th><i class="far fa-clock"></i> <i class="fas fa-check"></i> <i class="fas fa-times"></i> {{$appointment->type}}</th>
+                        <th>
+                          @if($appointment->consultation)
+                          <i class="fas fa-check"></i>
+                          @else
+                          <i class="far fa-clock"></i> <i class="fas fa-times"></i>
+                          @endif
+                          {{$appointment->type}}
+                        </th>
                         <td>{{$appointment->patient->name.' '.$appointment->patient->lastname}}</td>
                         <td>{{$appointment->user->name.' '.$appointment->user->lastname}}</td>
                         <td>{{$appointment->datetime->format('d-m-Y H:i')}}</td>
@@ -82,7 +89,11 @@
                               </button>
                               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 {{-- TODO: hacer el acceos a la receta --}}
+                                @if($appointment->consultation)
+                                <a href="/consultations/{{$appointment->consultation->id}}" class="text-decoration-none"><button class="dropdown-item"><i class="far fa-edit"></i> Ver</button></a>
+                                @else
                                 <a href="/consultations/{{$appointment->id}}/create" class="text-decoration-none"><button class="dropdown-item"><i class="far fa-edit"></i> Realizar</button></a>
+                                @endif
                                 <button data-toggle="modal" data-target="#appointmentForm" data-title="Editar" onclick="setValues({{$index}})" class="dropdown-item"><i class="fas fa-pen"></i> Editar</button>
                                 <button data-toggle="modal" data-target="#deleteAppointment" class="dropdown-item" onclick="deleteElement({{$index}})"><i class="fas fa-trash-alt"></i> Eliminar</button>
                               </div>

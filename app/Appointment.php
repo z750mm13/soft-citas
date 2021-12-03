@@ -22,6 +22,10 @@ class Appointment extends Model {
         return $this -> belongsTo('App\User');
     }
 
+    public function consultation() {
+        return $this -> hasOne('App\Consultation');
+    }
+
     /**
      * The attributes that should be cast to native types.
      *
