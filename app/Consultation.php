@@ -18,7 +18,17 @@ class Consultation extends Model {
         return $this -> belongsTo('App\Appointment');
     }
 
-    public function prescription() {
-        return $this -> hasOne('App\Prescription');
+    public function prescriptions() {
+        return $this -> hasMany('App\Prescription');
     }
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
 }

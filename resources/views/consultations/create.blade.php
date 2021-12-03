@@ -6,7 +6,7 @@
         <li class="breadcrumb-item"><a href="/"><i class="icon icon-home"></i></a></li>
         <li class="breadcrumb-item"><a href="{{ route('home') }}">Inicio</a></li>
         <li class="breadcrumb-item"><a href="{{ route('consultations.index') }}">Consultas</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Crear consulta</li>
+        <li class="breadcrumb-item active" aria-current="page">Realizar consulta</li>
     </ol>
     <div class="vertical-buffer mb-5">
         <h1>San Juan Teponaxtla</h1>
@@ -67,18 +67,20 @@
                                     </div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="col-md-4 mb-4">
-                                        <label for="inputState">Medicamento</label>
-                                        <select id="inputState" class="form-control" name="medicamentos[]">
-                                            <option selected="selected">Choose...</option>
-                                            <option>...</option>
-                                        </select>
+                                    <div class="col-md-4 col-sm-12 mb-4">
+                                        <label for="inputState">Presentación</label>
+                                        <select class="form-control" name="medicamentos[]">
+                                            <option value="null" selected>Selecicone el medicamento</option>
+                                            @foreach($medicines as $medicine)
+                                            <option value="{{ $medicine->id }}">{{ $medicine->name }}</option>
+                                            @endforeach
+                                        </select>                                                                                 
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-3 col-sm-12">
                                         <label for="inputCity">Dosis</label>
                                         <input type="text" id="inputCity" name="dosis[]" class="form-control">
                                     </div>
-                                    <div class="col-md-5">
+                                    <div class="col-md-5 col-sm-12">
                                         <label for="inputZip">Indicaciones</label>
                                         <input type="text" id="inputZip" name="indicaciones[]" class="form-control">
                                     </div>
@@ -88,17 +90,20 @@
                     </div>
                 </div>
                 <div class="row">
-                <div class="form-group col-12">
-                    <a class="col-md-12 btn btn-light btn-lg" id="clone" role="button"><i class="fas fa-plus"></i></a>
-                </div>
-                <br>
+                    <div class="form-group col-12">
+                        <a class="col-md-12 btn btn-light btn-lg" id="clone" role="button"><i class="fas fa-plus"></i></a>
+                    </div>
 
-                <div class="form-group col-12">
-                  <input type="submit"  class="btn btn-primary " name="submit"  value="Guardar">
-                </div>
+                    <div class="alert alert-info col-12">
+                        <strong>Aviso</strong>
+                        <p>En caso de dejar el <b>medicamento</b> sin seleccionar la fila <b>no se tomará en cuenta</b>.</p>
+                    </div>
+
+                    <div class="form-group col-12">
+                      <input type="submit"  class="btn btn-primary" name="submit"  value="Guardar">
+                    </div>
                 </div>
             </form>
-
         </div>
     </div>
 </div>
@@ -121,7 +126,7 @@
           this.name = 'pregunta'+preguntaid;
           tipoid++;
         } else 
-        this.value = '';
+        this.value = null;
       }).end().find('label').each(function () {
         $(this).attr('for', function (index, old) {
           if(old != 'nf'){

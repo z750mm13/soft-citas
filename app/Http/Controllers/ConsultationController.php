@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Consultation;
 use App\Appointment;
+use App\Medicine;
+use App\Prescription;
+use Illuminate\Support\Facades\Hash;
 
 class ConsultationController extends Controller {
     /**
@@ -24,7 +27,8 @@ class ConsultationController extends Controller {
      */
     public function create($appointment_id = null) {
         $appointment = Appointment::findOrFail($appointment_id);
-        return view('consultations.create', compact('appointment_id','appointment'));
+        $medicines = Medicine::all();
+        return view('consultations.create', compact('appointment_id','appointment','medicines'));
     }
 
     /**
@@ -34,8 +38,22 @@ class ConsultationController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
+        $medicamentos = $request->get('medicamentos');
+        $dosis = $request->get('dosis');
+        $indicaciones = $request->get('indicaciones');
+
         $consultation = Consultation::create($request->all());
-        return route('consultations.show',compact('consultation'));
+        for ($i = 0; $i < count($medicamentos); $i++) {
+            if($medicamentos[$i] != "null") {
+                Prescription::create([
+                    "dose" => $dosis[$i],
+                    "description" => $indicaciones[$i],
+                    "consultation_id" => $consultation->id,
+                    "medicine_id" => $medicamentos[$i]
+                ]);
+            }
+        }
+        return redirect()->route('consultations.show',compact('consultation'));
     }
 
     /**
@@ -46,7 +64,7 @@ class ConsultationController extends Controller {
      */
     public function show($id) {
         $consultation = Consultation::findOrFail($id);
-        return view('consultations.show', compact('consultations'));
+        return view('consultations.show', compact('consultation'));
     }
 
     /**
@@ -56,6 +74,7 @@ class ConsultationController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit($id) {
+        //dd(Hash::check('holamundo', \App\User::findOrFail(1)->password));
         $consultation = Consultation::findOrFail($id);
         return view('consultations.edit', compact('consultation'));
     }

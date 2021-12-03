@@ -14,7 +14,7 @@ class CreateConsultationsTable extends Migration
     public function up() {
         Schema::create('consultations', function (Blueprint $table) {
             $table->id();
-            $table->string('description');
+            $table->text('description');
             $table->bigInteger('appointment_id')->unsigned();
             $table->timestamps();
         });
