@@ -30,7 +30,7 @@
                 </div>
             </div>
             <p class="card-text text-right text-muted">{{$consultation->created_at->format('d/m/Y')}}</p>
-            <p class="card-text">{{$consultation->description}}</p>
+            <p class="card-text text-justify">{{$consultation->description}}</p>
             
             @if(count($consultation->prescriptions))
             <div class="vertical-buffer mb-5 mt-3">
@@ -38,7 +38,7 @@
                 <hr class="red mb-5">
             </div>
             @foreach($consultation->prescriptions as $prescription)
-            <p class="card-text"><b>{{$prescription->medicine->name}}:</b> {{$prescription->dose}}{{$prescription->description?', '.$prescription->description:''}}.</p>
+            <p class="card-text text-justify"><b>{{$prescription->medicine->name}}:</b> {{$prescription->dose}}{{$prescription->description?', '.$prescription->description:''}}.</p>
             @endforeach
             @endif
         </div>

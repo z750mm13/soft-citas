@@ -8,13 +8,13 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/"><i class="icon icon-home"></i></a></li>
         <li class="breadcrumb-item"><a href="{{ route('home') }}">Inicio</a></li>
-        <li class="breadcrumb-item active" aria-current="ppatient_id">Citas</li>
+        <li class="breadcrumb-item active" aria-current="consultation_id">Consulta</li>
     </ol>
     <div class="vertical-buffer mb-5">
         <h1>San Juan Teponaxtla</h1>
-        <h2 id="bienvenida">Citas</h2>
+        <h2 id="bienvenida">Recetas</h2>
         <hr class="red">
-        <p>Apartado de control de citas. En este apartado usted puede dar de alta las citas ademas de modificarlas o eliminarlas.</p>
+        <p>Apartado de control de recetas. En este apartado usted puede modificar o eliminar las recetas.</p>
     </div>
 
     <form>
@@ -90,12 +90,14 @@
                               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 {{-- TODO: hacer el acceos a la receta --}}
                                 @if($appointment->consultation)
-                                <a href="/consultations/{{$appointment->consultation->id}}" class="text-decoration-none"><button class="dropdown-item"><i class="far fa-edit"></i> Ver</button></a>
+                                <a href="/consultations/{{$appointment->consultation->id}}" class="text-decoration-none"><button class="dropdown-item"><i class="fas fa-notes-medical"></i> Ver</button></a>
                                 @else
                                 <a href="/consultations/{{$appointment->id}}/create" class="text-decoration-none"><button class="dropdown-item"><i class="far fa-edit"></i> Realizar</button></a>
                                 @endif
+                                @if(!$appointment->consultation)
                                 <button data-toggle="modal" data-target="#appointmentForm" data-title="Editar" onclick="setValues({{$index}})" class="dropdown-item"><i class="fas fa-pen"></i> Editar</button>
                                 <button data-toggle="modal" data-target="#deleteAppointment" class="dropdown-item" onclick="deleteElement({{$index}})"><i class="fas fa-trash-alt"></i> Eliminar</button>
+                                @endif
                               </div>
                             </div>
                         </td>
