@@ -8,13 +8,13 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/"><i class="icon icon-home"></i></a></li>
         <li class="breadcrumb-item"><a href="{{ route('home') }}">Inicio</a></li>
-        <li class="breadcrumb-item active" aria-current="consultation_id">Consulta</li>
+        <li class="breadcrumb-item active" aria-current="ppatient_id">Citas</li>
     </ol>
     <div class="vertical-buffer mb-5">
         <h1>San Juan Teponaxtla</h1>
-        <h2 id="bienvenida">Recetas</h2>
+        <h2 id="bienvenida">Citas</h2>
         <hr class="red">
-        <p>Apartado de control de recetas. En este apartado usted puede modificar o eliminar las recetas.</p>
+        <p>Apartado de control de citas. En este apartado usted puede dar de alta las citas ademas de modificarlas o eliminarlas.</p>
     </div>
 
     <form>

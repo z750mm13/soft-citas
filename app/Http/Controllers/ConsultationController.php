@@ -97,7 +97,8 @@ class ConsultationController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id) {
+    public function destroy(Request $request, $id) {
+        dd('Hola', Hash::check($request->get('password'), \App\User::findOrFail(1)->password));
         Consultation::findOrFail($id)->delete();
         return redirect()->route('consultations.index');
     }
