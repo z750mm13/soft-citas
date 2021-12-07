@@ -23,17 +23,11 @@ Route::resource('patients', PatientController::class)->middleware('auth');
 Route::resource('medicines', MedicineController::class)->middleware('auth');
 Route::resource('appointments', AppointmentController::class)->middleware('auth');
 
-Route::get('consultations/{appointment}/create', [
-    'as' => 'consultations.create',
-    'uses' => 'ConsultationController@create'
-]);
-Route::post('consultations/{consultation}/edit', [
-    'as' => 'consultations.edit',
-    'uses' => 'ConsultationController@edit'
-]);
+Route::get('consultations/{appointment}/create', ['as' => 'consultations.create', 'uses' => 'ConsultationController@create']);
+Route::post('consultations/{appointment_id}', ['as' => 'consultations.create', 'uses' => 'ConsultationController@create']);
+Route::post('consultations/{consultation_id}/edit', ['as' => 'consultations.edit', 'uses' => 'ConsultationController@edit']);
 Route::resource('consultations', ConsultationController::class)
     ->except(['create','edit'])
-    ->middleware('auth')
-;
+    ->middleware('auth');
 
 Auth::routes();

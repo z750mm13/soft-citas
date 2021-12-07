@@ -8,12 +8,12 @@
                 </button>
             </div>
             <div class="modal-body">
-                Ingrese la contraseña de la / (del) encargada(o)
-                <form action="{{ route('appointments.destroy',[0]) }}" method="post" id="confirmModal">
+                <form action="{{ route('consultations.destroy',[0]) }}" method="post" id="confirmModal">
                     @csrf
-                    <input id="delForm" type="hidden" name="_method" value="DELETE">
+                    <input id="methForm" type="hidden" name="_method" value="DELETE">
 
                     <div class="form-group">
+                        <label for="password">Ingrese la contraseña de la / (del) encargada(o)</label>
                         <input type="password" name="password" class="form-control" id="password" placeholder="Contraseña">
                       </div>
                 </form>

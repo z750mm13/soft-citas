@@ -45,6 +45,9 @@ class ConsultationController extends Controller {
         $consultation = Consultation::create($request->all());
         for ($i = 0; $i < count($medicamentos); $i++) {
             if($medicamentos[$i] != "null") {
+                $medicine = Medicine::findOrFail($medicamentos[$i]);
+                $medicine->stock = $medicine->stock - 1;
+                $medicine->save();
                 Prescription::create([
                     "dose" => $dosis[$i],
                     "description" => $indicaciones[$i],
@@ -73,8 +76,8 @@ class ConsultationController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id) {
-        //dd(Hash::check('holamundo', \App\User::findOrFail(1)->password));
+    public function edit(Request $request, $id) {
+        dd('edit',$id, Hash::check($request->get('password'), \App\User::findOrFail(1)->password));
         $consultation = Consultation::findOrFail($id);
         return view('consultations.edit', compact('consultation'));
     }
@@ -98,8 +101,13 @@ class ConsultationController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, $id) {
-        dd('Hola', Hash::check($request->get('password'), \App\User::findOrFail(1)->password));
-        Consultation::findOrFail($id)->delete();
+        if(!Hash::check($request->get('password'), \App\User::findOrFail(1)->password))
+            return redirect()->back()->with('error','Contraseña incorrecta');
+        $consultation=Consultation::findOrFail($id);
+        foreach ($consultation->prescriptions as $presescription) {
+            $presescription->delete();
+        }
+        $consultation->delete();
         return redirect()->route('consultations.index');
     }
 }

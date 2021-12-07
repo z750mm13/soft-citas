@@ -17,7 +17,3 @@
         </div>
     </div>
 </div>
-<form id="formDelete" action="{{ route('appointments.destroy',[0]) }}" id="delete-form" method="post" style="display:none">
-    @csrf
-    <input type="hidden" name="_method" value="delete">
-</form>

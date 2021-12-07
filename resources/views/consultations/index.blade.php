@@ -55,7 +55,7 @@
                               </button>
                               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a href="/consultations/{{$consultation->id}}" class="text-decoration-none"><button class="dropdown-item"><i class="fas fa-notes-medical"></i> Ver</button></a>
-                                <button data-toggle="modal" data-target="#consultationForm" data-title="Editar" onclick="editElement({{$index}})" class="dropdown-item"><i class="fas fa-pen"></i> Editar</button>
+                                <button data-toggle="modal" data-target="#confirmConsultation" data-title="Editar" onclick="editElement({{$index}})" class="dropdown-item"><i class="fas fa-pen"></i> Editar</button>
                                 <button data-toggle="modal" data-target="#deleteConsultation" class="dropdown-item" onclick="deleteElement({{$index}})"><i class="fas fa-trash-alt"></i> Eliminar</button>
                               </div>
                             </div>
@@ -86,14 +86,17 @@
       },
       @endforeach
   ];
+  let len = (uri) =>{k=j=0;for(let i=uri.length-1;i>=0;i--){k--;if(uri.charAt(i)=='/')j++;if(j==2)return k+1}};
   function editElement(id) {
-    $("#confirmModal").attr("action","{{ route('consultations.edit',[0]) }}".slice(0, -1)+consultations[id].id);
-    $("#confirmModal").attr("method","GET".slice(0, -1)+consultations[id].id);
-    $("delForm").attr()
+    $("#confirmModal").attr("action","{{URL::to('/')}}/consultations/"+consultations[id].id+'/edit');
+    $("#confirmModal").attr("method","POST");
+    $("#methForm").val('POST');
   }
   function deleteElement(id) {
-    $("#confirmModal").attr("action","{{ route('consultations.destroy',[0]) }}".slice(0, -1)+consultations[id].id);
-    $("#confirmModal").attr("method","POST".slice(0, -1)+consultations[id].id);
+    $("#confirmModal").attr("action","{{URL::to('/')}}/consultations/"+consultations[id].id);
+    //$("#confirmModal").attr("action","{{ route('consultations.destroy',[0]) }}".slice(0, -1)+consultations[id].id);
+    $("#confirmModal").attr("method","POST");
+    $("#methForm").val('DELETE');
   }
 </script>
 @endpush
