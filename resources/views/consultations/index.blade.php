@@ -20,12 +20,7 @@
     <div class="card mb-5 shadow">
         <div class="card-body p-0">
             <div class="row m-4 align-items-center">
-                <div class="col-7">
-                    <h5 class="card-title mb-0">Consultas</h5>
-                </div>
-                <div class="col-5 text-right">
-                    <button type="button" data-toggle="modal" data-target="#consultationForm" data-title="Agregar" onclick="clearFields()" class="btn btn-sm btn-primary">Agregar consulta</button>
-                </div>
+              <h5 class="card-title mb-0">Consultas</h5>
             </div>
 
             @if($consultations->count())
