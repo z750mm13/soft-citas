@@ -8,6 +8,7 @@ use App\Appointment;
 use App\Medicine;
 use App\Prescription;
 use Illuminate\Support\Facades\Hash;
+use PDF;
 
 class ConsultationController extends Controller {
     /**
@@ -77,9 +78,11 @@ class ConsultationController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Request $request, $id) {
-        dd('edit',$id, Hash::check($request->get('password'), \App\User::findOrFail(1)->password));
+        if(!Hash::check($request->get('password'), \App\User::findOrFail(1)->password))
+        return redirect()->route('consultations.index')->with('error','Contraseña incorrecta');
         $consultation = Consultation::findOrFail($id);
-        return view('consultations.edit', compact('consultation'));
+        $medicines = Medicine::all();
+        return view('consultations.edit', compact('consultation', 'medicines'));
     }
 
     /**
@@ -90,6 +93,7 @@ class ConsultationController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id) {
+        dd($request->all());
         Consultation::findOrFail($id)->update($request->all());
         return redirect()->back();
     }
