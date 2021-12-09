@@ -50,8 +50,8 @@
                               </button>
                               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a href="/consultations/{{$consultation->id}}" class="text-decoration-none"><button class="dropdown-item"><i class="fas fa-notes-medical"></i> Ver</button></a>
-                                <button data-toggle="modal" data-target="#confirmConsultation" data-title="Editar" onclick="editElement({{$index}})" class="dropdown-item"><i class="fas fa-pen"></i> Editar</button>
-                                <button data-toggle="modal" data-target="#deleteConsultation" class="dropdown-item" onclick="deleteElement({{$index}})"><i class="fas fa-trash-alt"></i> Eliminar</button>
+                                <button data-toggle="modal" data-target="#confirmConsultation" data-title="Editar" onclick="editElement({{$index}})" class="dropdown-item"><i class="fas fa-pen"></i> Editar <sup class="text-muted"><i class="fas fa-lock"></i></sup></button>
+                                <button data-toggle="modal" data-target="#deleteConsultation" class="dropdown-item" onclick="deleteElement({{$index}})"><i class="fas fa-trash-alt"></i> Eliminar <sup class="text-muted"><i class="fas fa-lock"></i></sup></button>
                               </div>
                             </div>
                         </td>

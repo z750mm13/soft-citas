@@ -53,8 +53,9 @@
                 </div>
   
                 <div id="medicamentos">
+                    <?php $id = 0; ?>
                     @forelse($consultation->prescriptions as $prescription)
-                    <div class="form-group" id="card0">
+                    <div class="form-group" id="card{{$id}}">
                         <div class="card">
                             <div class="card-body mx-3">
                                 <div class="d-flex justify-content-between">
@@ -62,7 +63,7 @@
                                         <label for="nf">Medicamento</label>
                                     </div>
                                     <div>
-                                        <button type="button" class="close" onclick="deleteCard(0)">
+                                        <button type="button" class="close" onclick="deleteCard({{$id}})">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
@@ -71,7 +72,7 @@
                                     <div class="col-md-4 col-sm-12 mb-4">
                                         <label for="inputState">Presentación</label>
                                         <select class="form-control" name="medicamentos[]">
-                                            <option value="{{$}}" selected>Selecicone el medicamento</option>
+                                            <option value="{{$prescription->medicine->id}}" selected>* {{$prescription->medicine->name}}</option>
                                             <option value="null">Selecicone el medicamento</option>
                                             @foreach($medicines as $medicine)
                                             <option value="{{ $medicine->id }}">{{ $medicine->name }}</option>
@@ -80,16 +81,18 @@
                                     </div>
                                     <div class="col-md-3 col-sm-12">
                                         <label for="inputCity">Dosis</label>
-                                        <input type="text" id="inputCity" name="dosis[]" class="form-control">
+                                        <input type="text" id="inputCity" name="dosis[]" class="form-control" value="{{ $prescription->dose }}">
                                     </div>
                                     <div class="col-md-5 col-sm-12">
                                         <label for="inputZip">Indicaciones</label>
-                                        <input type="text" id="inputZip" name="indicaciones[]" class="form-control">
+                                        <input type="text" id="inputZip" name="indicaciones[]" class="form-control" value="{{ $prescription->description }}">
                                     </div>
+                                    <input type="text" name="ids[]" value="{{ $prescription->id }}" class="form-control" style="visibility:hidden;">
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <?php $id++; ?>
                     @empty
                     <div class="form-group" id="card0">
                         <div class="card">
@@ -122,10 +125,12 @@
                                         <label for="inputZip">Indicaciones</label>
                                         <input type="text" id="inputZip" name="indicaciones[]" class="form-control">
                                     </div>
+                                    <input type="text" name="ids[]" class="form-control" style="visibility:hidden;">
                                 </div>
                             </div>
                         </div>
                     </div
+                    <?php $id++; ?>
                     @endforelse
                 </div>
                 <div class="row">
@@ -135,7 +140,7 @@
 
                     <div class="alert alert-info col-12">
                         <strong>Aviso</strong>
-                        <p>En caso de dejar el <b>medicamento</b> sin seleccionar la fila <b>no se tomará en cuenta</b>.</p>
+                        <p>En caso de dejar el <b>medicamento</b> sin seleccionar la fila <b>no se tomará en cuenta</b>, en caso que haya estado en la receta se <b>eliminará</b>.</p>
                     </div>
 
                     <div class="form-group col-12">
@@ -153,7 +158,7 @@
   var preguntaid = 1;
   var tipoid = 2;
   var forid = 1;
-  var card = 1;
+  var card = {{$id}};
   document.body.onload = function() {
     $("#clone").click(function () {
       // Clona peligos
@@ -164,8 +169,8 @@
           this.id = 'tipo'+tipoid;
           this.name = 'pregunta'+preguntaid;
           tipoid++;
-        } else 
-        this.value = null;
+        }  else
+            this.value = null;
       }).end().find('label').each(function () {
         $(this).attr('for', function (index, old) {
           if(old != 'nf'){
@@ -184,6 +189,7 @@
       });
       $clone.attr('id','card'+card);
       card++;
+      console.log($clone.find(':input'));
 
       // Añade el clon
       preguntaid++;

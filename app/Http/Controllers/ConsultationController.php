@@ -93,9 +93,30 @@ class ConsultationController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id) {
-        dd($request->all());
-        Consultation::findOrFail($id)->update($request->all());
-        return redirect()->back();
+        $data = $request->all();
+        $consultation = Consultation::findOrFail($id);
+        $consultation->update($data);
+
+        foreach($data['ids'] as $i => $id){
+            if(!$id) { //Nuevo medicamento
+                if($data['medicamentos'][$i]) Prescription::create([
+                    "dose" => $data['dosis'][$i],
+                    "description" => $data['indicaciones'][$i],
+                    "consultation_id" => $consultation->id,
+                    "medicine_id" => $data['medicamentos'][$i]
+                ]);
+            } else if(!$data['medicamentos'][$i] || $data['medicamentos'][$i]=="null") //Eliminacion de medicamento
+            Prescription::findOrFail($id)->delete();
+            else Prescription::findOrFail($id)->update([ //Edicion de medicamento
+                "dose" => $data['dosis'][$i],
+                "description" => $data['indicaciones'][$i],
+                "consultation_id" => $consultation->id,
+                "medicine_id" => $data['medicamentos'][$i]
+            ]);
+        }
+        Prescription::whereNotIn('id', $data['ids'])->delete();
+
+        return redirect()->route('consultations.index');
     }
 
     /**
