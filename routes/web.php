@@ -20,9 +20,20 @@ Route::get('/', function () {
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('patients', PatientController::class)->middleware('auth');
+
+/**
+ * TODO generar reportes de medicamentos
+ */
 Route::resource('medicines', MedicineController::class)->middleware('auth');
+
+/**
+ * TODO generar reportes de citas
+ */
 Route::resource('appointments', AppointmentController::class)->middleware('auth');
 
+/**
+ * TODO generar reportes de consultas
+ */
 Route::get('consultations/{appointment}/create', ['as' => 'consultations.create', 'uses' => 'ConsultationController@create']);
 Route::post('consultations/{appointment_id}', ['as' => 'consultations.create', 'uses' => 'ConsultationController@create']);
 Route::post('consultations/{consultation_id}/edit', ['as' => 'consultations.edit', 'uses' => 'ConsultationController@edit']);

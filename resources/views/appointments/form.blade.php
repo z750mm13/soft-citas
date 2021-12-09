@@ -15,7 +15,11 @@
                     <div class="form-group row">
                         <label for="type" class="col-md-4 col-form-label text-md-right">{{ __('Tipo de consulta') }}</label>
                         <div class="col-md-6">
-                            <input id="type" type="text" class="form-control @error('type') is-invalid @enderror" name="type" value="{{ old('type') }}" required autocomplete="type" autofocus>
+                            <select class="form-control @error('type') is-invalid @enderror" id="type" name="type" required>
+                                <option value="">Seleccione el tipo</option>
+                                <option>Preventiva</option>
+                                <option>Medicina general</option>
+                            </select>
                             @error('type')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -40,7 +44,7 @@
                         <label for="patient_id" class="col-md-4 col-form-label text-md-right">{{ __('Paciente') }}</label>
                         <div class="col-md-6">
 
-                            <select class="form-control @error('patient_id') is-invalid @enderror" id="patient_id" name="patient_id">
+                            <select class="form-control @error('patient_id') is-invalid @enderror" id="patient_id" name="patient_id" required>
                                 <option value="">Seleccione al paciente</option>
                                 @foreach($patients as $patient)
                                 <option value="{{$patient->id}}">{{$patient->name.' '.$patient->lastname}}</option>
@@ -58,7 +62,7 @@
                         <label for="user_id" class="col-md-4 col-form-label text-md-right">{{ __('Encargada(o)') }}</label>
                         <div class="col-md-6">
                             
-                            <select class="form-control @error('user_id') is-invalid @enderror" id="user_id" name="user_id">
+                            <select class="form-control @error('user_id') is-invalid @enderror" id="user_id" name="user_id" required>
                                 <option value="">Seleccione al encargada(o)</option>
                                 @foreach($doctors as $doctor)
                                 <option value="{{$doctor->id}}">{{$doctor->name.' '.$doctor->lastname}}</option>

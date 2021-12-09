@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+<?php use Carbon\Carbon; ?>
 @section('content')
 @include('appointments.form')
 @include('appointments.delete')
@@ -74,8 +74,10 @@
                         <th>
                           @if($appointment->consultation)
                           <i class="fas fa-check"></i>
+                          @elseif(Carbon::now()->lte($appointment->datetime))
+                          <i class="far fa-clock"></i>
                           @else
-                          <i class="far fa-clock"></i> <i class="fas fa-times"></i>
+                          <i class="fas fa-times"></i>
                           @endif
                           {{$appointment->type}}
                         </th>
