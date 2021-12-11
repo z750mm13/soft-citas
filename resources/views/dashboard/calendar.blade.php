@@ -11,10 +11,18 @@
 <script src='{{ asset('vendor/fullcalendar/locales/es.js') }}'></script>
 <script defer>
     document.addEventListener('DOMContentLoaded', function() {
+      events = [
+        { // this object will be "parsed" into an Event Object
+          title: 'C', // a property!
+          start: '2018-09-01', // a property!
+          end: '2018-09-02' // a property! ** see important note below about 'end' **
+        }
+      ];
       var calendarEl = document.getElementById('calendar');
       var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
-        locale: 'es'
+        locale: 'es',
+				contentHeight: 'auto',
       });
       calendar.render();
     });
