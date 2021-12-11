@@ -4,7 +4,7 @@
 <section class="section section-intro flag-banner" style="background: transparent url({{ asset('resources/img/background_2.jpg')}}) no-repeat center top; background-size: cover; top:0;">
 <div class="container">
   <div class="section-intro__content" style="color: transparent;">
-    <h1>ad;lkasldk;lasdk-</h1>
+    <h1>ad;lkasldk;lasdk-</h1>x
     <p class="text-border">-</p>
     <p class="text-border">-</p>
     <p class="text-border">-</p>

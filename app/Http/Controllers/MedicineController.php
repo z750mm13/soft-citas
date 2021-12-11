@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Medicine;
 
+use App\Exports\MedicineExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class MedicineController extends Controller {
     /**
      * Display a listing of the resource. Das medicine.
@@ -14,6 +17,18 @@ class MedicineController extends Controller {
     public function index() {
         $medicines = Medicine::all();
         return view('medicines.index', compact('medicines'));
+    }
+
+    /**
+     * Display a listing of the resource. Das medicine.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function report($type) {
+        if($type=='excel')
+        return Excel::download(new MedicineExport, 'Medicamentos.xlsx');
+        else if ($type=='pdf')return Excel::download(new MedicineExport, 'Medicamentos.pdf',\Maatwebsite\Excel\Excel::DOMPDF);
+        else abort(404);
     }
 
     /**

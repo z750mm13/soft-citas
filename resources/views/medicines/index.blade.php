@@ -17,6 +17,10 @@
         <p>Apartado de control de medicamentos. En este apartado usted puede dar de alta a los medicamentos de la unidad rural ademas de modificarlos o eliminarlos.</p>
     </div>
 
+    <div class="form-group">
+      <a class="btn btn-primary btn-sm" href="{{route('medicines.report',['pdf'])}}" role="button"><i class="far fa-file-pdf"></i> Generar PDF</a> <a class="btn btn-sm btn-default" href="{{route('medicines.report',['excel'])}}" role="button"><i class="far fa-file-excel"></i> Generar Excel</a>
+    </div>
+
     <div class="card mb-5 shadow">
         <div class="card-body p-0">
             <div class="row m-4 align-items-center">

@@ -24,6 +24,10 @@ Route::resource('patients', PatientController::class)->middleware('auth');
 /**
  * TODO generar reportes de medicamentos
  */
+Route::get('medicines/{type}/report',[
+    'as' => 'medicines.report',
+    'uses' => 'MedicineController@report']
+);
 Route::resource('medicines', MedicineController::class)->middleware('auth');
 
 /**
@@ -40,5 +44,8 @@ Route::post('consultations/{consultation_id}/edit', ['as' => 'consultations.edit
 Route::resource('consultations', ConsultationController::class)
     ->except(['create','edit'])
     ->middleware('auth');
-
+Route::get('/print',function () {
+    $pdf = \PDF::loadView('ejemplo');
+    return $pdf->download('ejemplo.pdf');
+});
 Auth::routes();

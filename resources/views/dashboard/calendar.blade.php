@@ -8,11 +8,13 @@
 
 @push('postjs')
 <script src='{{ asset('vendor/fullcalendar/main.js') }}'></script>
-<script>
+<script src='{{ asset('vendor/fullcalendar/locales/es.js') }}'></script>
+<script defer>
     document.addEventListener('DOMContentLoaded', function() {
       var calendarEl = document.getElementById('calendar');
       var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth'
+        initialView: 'dayGridMonth',
+        locale: 'es'
       });
       calendar.render();
     });
