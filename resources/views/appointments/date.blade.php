@@ -14,7 +14,7 @@
 
                     <div class="form-group">
                         <label for="datatype">Tipo de consulta</label>
-                        <select class="form-control" id="datatype">
+                        <select class="form-control" id="datatype" name="datatype">
                             <option selected>Seleccione el tipo</option>
                             <option>Dia</option>
                             <option>Semana</option>

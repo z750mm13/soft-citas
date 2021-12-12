@@ -8,6 +8,7 @@ use App\User;
 use App\Patient;
 use App\Exports\AppointmentExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Carbon\Carbon;
 
 class AppointmentController extends Controller {
     
@@ -39,8 +40,14 @@ class AppointmentController extends Controller {
      */
     public function report(Request $request, $type) {
         if($type=='excel')
-        return Excel::download(new AppointmentExport($request->input('date')), 'Medicamentos '.$request->input('date').'.xlsx');
-        else if ($type=='pdf')return Excel::download(new AppointmentExport($request->input('date')), 'Medicamentos '.$request->input('date').'.pdf',\Maatwebsite\Excel\Excel::MPDF);
+        return Excel::download(
+            new AppointmentExport($request->input('date'),$request->input('datatype')=='Semana'),
+            'Medicamentos '.$request->input('date').'.xlsx'
+        );
+        else if ($type=='pdf')return Excel::download(
+            new AppointmentExport($request->input('date'),$request->input('datatype')=='Semana'),
+            'Medicamentos '.$request->input('date').'.pdf',\Maatwebsite\Excel\Excel::MPDF
+        );
         else abort(404);
     }
 
