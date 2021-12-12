@@ -8,7 +8,6 @@ use App\User;
 use App\Patient;
 use App\Exports\AppointmentExport;
 use Maatwebsite\Excel\Facades\Excel;
-use Carbon\Carbon;
 
 class AppointmentController extends Controller {
     

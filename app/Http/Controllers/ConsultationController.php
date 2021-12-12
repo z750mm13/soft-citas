@@ -8,7 +8,8 @@ use App\Appointment;
 use App\Medicine;
 use App\Prescription;
 use Illuminate\Support\Facades\Hash;
-use PDF;
+use App\Exports\ConsultationExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ConsultationController extends Controller {
     /**
@@ -19,6 +20,24 @@ class ConsultationController extends Controller {
     public function index() {
         $consultations = Consultation::all();
         return view('consultations.index', compact('consultations'));
+    }
+
+    /**
+     * Generate a file with listing of the resource. Das Appountment.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function report(Request $request, $type) {
+        if($type=='excel')
+        return Excel::download(
+            new ConsultationExport($request->input('date'),$request->input('datatype')=='Semana'),
+            'Medicamentos '.$request->input('date').'.xlsx'
+        );
+        else if ($type=='pdf')return Excel::download(
+            new ConsultationExport($request->input('date'),$request->input('datatype')=='Semana'),
+            'Medicamentos '.$request->input('date').'.pdf',\Maatwebsite\Excel\Excel::MPDF
+        );
+        else abort(404);
     }
 
     /**

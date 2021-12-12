@@ -1,6 +1,8 @@
 @extends('layouts.app')
+<?php use Carbon\Carbon; ?>
 @include('consultations.delete')
 @include('consultations.confirm')
+@include('consultations.date')
 
 @section('content')
 
@@ -15,6 +17,11 @@
     <h2 id="bienvenida">Recetas</h2>
     <hr class="red">
     <p>Apartado de control de recetas. En este apartado usted puede modificar o eliminar las recetas.</p>
+  </div>
+
+  <div class="form-group">
+    <a class="btn btn-primary btn-sm" href="#" onclick="dateForm('pdf')" role="button" data-toggle="modal" data-target="#generateDoc"><i class="far fa-file-pdf"></i> Generar PDF</a>
+    <a class="btn btn-sm btn-default" href="#" onclick="dateForm('excel')" role="button" data-toggle="modal" data-target="#generateDoc"><i class="far fa-file-excel"></i> Generar Excel</a>
   </div>
 
     <div class="card mb-5 shadow">
@@ -42,7 +49,7 @@
                         <th>{{$consultation->appointment->type}}</th>
                         <td>{{$consultation->appointment->patient->name.' '.$consultation->appointment->patient->lastname}}</td>
                         <td>{{$consultation->appointment->user->name.' '.$consultation->appointment->user->lastname}}</td>
-                        <td>{{$consultation->appointment->created_at->format('d-m-Y H:i')}}</td>
+                        <td>{{$consultation->created_at->format('d-m-Y H:i')}}</td>
                         <td>
                           <div class="dropdown">
                               <button class="btn btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -89,9 +96,11 @@
   }
   function deleteElement(id) {
     $("#confirmModal").attr("action","{{URL::to('/')}}/consultations/"+consultations[id].id);
-    //$("#confirmModal").attr("action","{{ route('consultations.destroy',[0]) }}".slice(0, -1)+consultations[id].id);
     $("#confirmModal").attr("method","POST");
     $("#methForm").val('DELETE');
+  }
+  function dateForm(file) {
+    $("#confirmDoc").attr("action","{{URL::to('/')}}/consultations/"+file+"/report");
   }
 </script>
 @endpush
