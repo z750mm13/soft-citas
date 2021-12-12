@@ -123,5 +123,15 @@
   function deleteElement(id) {
     $("#formDelete").attr("action","{{ route('patients.destroy',[0]) }}".slice(0, -1)+patients[id].id);
   }
+  function setImc() {
+    let size = ($("#size").val()?$("#size").val():1)/100;
+    let weight = $("#weight").val()/1;
+    $("#imc").val( truncateNum(weight/(size*size)) );
+  }
+  function truncateNum(n) {
+    let t=n.toString();
+    let regex=/(\d*.\d{0,2})/;
+    return t.match(regex)[0];
+  }
 </script>
 @endpush

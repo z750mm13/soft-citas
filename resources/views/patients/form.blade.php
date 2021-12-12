@@ -49,6 +49,22 @@
                     </div>
 
                     <div class="form-group row">
+                        <label for="size" class="col-md-4 col-form-label text-md-right">{{ __('Estatura (en centimetros)') }}</label>
+
+                        <div class="col-md-6">
+                            <input id="size" onchange="setImc()" type="number" class="form-control" name="size" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="weight" class="col-md-4 col-form-label text-md-right">{{ __('Peso (en Kilogramos)') }}</label>
+
+                        <div class="col-md-6">
+                            <input id="weight" onchange="setImc()" step="any" type="number" class="form-control" name="weight" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
                         <label for="gender" class="col-md-4 col-form-label text-md-right">{{ __('Genero') }}</label>
 
                         <div class="col-md-6">
@@ -89,26 +105,10 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="weight" class="col-md-4 col-form-label text-md-right">{{ __('Peso (en Kilogramos)') }}</label>
-
-                        <div class="col-md-6">
-                            <input id="weight" step="any" type="number" class="form-control" name="weight" required>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="size" class="col-md-4 col-form-label text-md-right">{{ __('Estatura (en centimetros)') }}</label>
-
-                        <div class="col-md-6">
-                            <input id="size" type="number" class="form-control" name="size" required>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
                         <label for="imc" step="any" class="col-md-4 col-form-label text-md-right">{{ __('IMC') }}</label>
 
                         <div class="col-md-6">
-                            <input id="imc" step="any" type="number" class="form-control" name="imc" required>
+                            <input id="imc" step="any" readonly type="number" class="form-control" name="imc" required>
                         </div>
                     </div>
 
