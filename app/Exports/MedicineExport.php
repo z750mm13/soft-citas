@@ -10,6 +10,7 @@ class MedicineExport extends BaseExport implements FromView {
     function __construct() {
         parent::_construct('A1:D1');
     }
+    
     /**
     * @return \Illuminate\Support\Collection
     */

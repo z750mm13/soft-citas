@@ -21,31 +21,33 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('patients', PatientController::class)->middleware('auth');
 
-/**
- * TODO generar reportes de medicamentos
- */
 Route::get('medicines/{type}/report',[
     'as' => 'medicines.report',
     'uses' => 'MedicineController@report']
-);
+)->middleware('auth');
 Route::resource('medicines', MedicineController::class)->middleware('auth');
 
 /**
- * TODO generar reportes de citas
+ * TODO generar reportes de citas -> Dia Semana Mes
  */
+Route::get('appointments/{type}/report',[
+    'as' => 'appointments.report',
+    'uses' => 'AppointmentController@report']
+)->middleware('auth');
 Route::resource('appointments', AppointmentController::class)->middleware('auth');
 
 /**
- * TODO generar reportes de consultas
+ * TODO generar reportes de consultas -> Dia Semana Mes
  */
-Route::get('consultations/{appointment}/create', ['as' => 'consultations.create', 'uses' => 'ConsultationController@create']);
-Route::post('consultations/{appointment_id}', ['as' => 'consultations.create', 'uses' => 'ConsultationController@create']);
-Route::post('consultations/{consultation_id}/edit', ['as' => 'consultations.edit', 'uses' => 'ConsultationController@edit']);
+Route::get('consultations/{appointment}/create', ['as' => 'consultations.create', 'uses' => 'ConsultationController@create'])->middleware('auth');
+Route::post('consultations/{appointment_id}', ['as' => 'consultations.create', 'uses' => 'ConsultationController@create'])->middleware('auth');
+Route::post('consultations/{consultation_id}/edit', ['as' => 'consultations.edit', 'uses' => 'ConsultationController@edit'])->middleware('auth');
 Route::resource('consultations', ConsultationController::class)
     ->except(['create','edit'])
     ->middleware('auth');
 Route::get('/print',function () {
     $pdf = \PDF::loadView('ejemplo');
     return $pdf->download('ejemplo.pdf');
-});
+})->middleware('auth');
+
 Auth::routes();

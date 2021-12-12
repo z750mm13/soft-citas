@@ -20,7 +20,7 @@ class MedicineController extends Controller {
     }
 
     /**
-     * Display a listing of the resource. Das medicine.
+     * Generate a file with listing of the resource. Das medicine.
      *
      * @return \Illuminate\Http\Response
      */

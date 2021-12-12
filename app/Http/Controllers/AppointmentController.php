@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Appointment;
 use App\User;
 use App\Patient;
+use App\Exports\AppointmentExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AppointmentController extends Controller {
     
@@ -28,6 +30,18 @@ class AppointmentController extends Controller {
         $doctors = User::all();
         $patients = Patient::all();
         return view('appointments.index', compact('appointments','doctors','patients', 'patient_id','user_id','date'));
+    }
+
+    /**
+     * Generate a file with listing of the resource. Das Appountment.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function report(Request $request, $type) {
+        if($type=='excel')
+        return Excel::download(new AppointmentExport($request->input('date')), 'Medicamentos '.$request->input('date').'.xlsx');
+        else if ($type=='pdf')return Excel::download(new AppointmentExport($request->input('date')), 'Medicamentos '.$request->input('date').'.pdf',\Maatwebsite\Excel\Excel::DOMPDF);
+        else abort(404);
     }
 
     /**

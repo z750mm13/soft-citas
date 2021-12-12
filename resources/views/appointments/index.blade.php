@@ -3,6 +3,7 @@
 @section('content')
 @include('appointments.form')
 @include('appointments.delete')
+@include('appointments.date')
 
 <div class="container">
     <ol class="breadcrumb">
@@ -15,6 +16,11 @@
         <h2 id="bienvenida">Citas</h2>
         <hr class="red">
         <p>Apartado de control de citas. En este apartado usted puede dar de alta las citas ademas de modificarlas o eliminarlas.</p>
+    </div>
+
+    <div class="form-group">
+      <a class="btn btn-primary btn-sm" href="#" onclick="dateForm('pdf')" role="button" data-toggle="modal" data-target="#confirmAppoiment"><i class="far fa-file-pdf"></i> Generar PDF</a>
+      <a class="btn btn-sm btn-default" href="#" onclick="dateForm('excel')" role="button" data-toggle="modal" data-target="#confirmAppoiment"><i class="far fa-file-excel"></i> Generar Excel</a>
     </div>
 
     <form>
@@ -158,6 +164,9 @@
   }
   function deleteElement(id) {
     $("#formDelete").attr("action","{{ route('appointments.destroy',[0]) }}".slice(0, -1)+appointments[id].id);
+  }
+  function dateForm(file) {
+    $("#confirmModal").attr("action","{{URL::to('/')}}/appointments/"+file+"/report");
   }
 </script>
 @endpush
