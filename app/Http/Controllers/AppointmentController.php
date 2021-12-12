@@ -40,7 +40,7 @@ class AppointmentController extends Controller {
     public function report(Request $request, $type) {
         if($type=='excel')
         return Excel::download(new AppointmentExport($request->input('date')), 'Medicamentos '.$request->input('date').'.xlsx');
-        else if ($type=='pdf')return Excel::download(new AppointmentExport($request->input('date')), 'Medicamentos '.$request->input('date').'.pdf',\Maatwebsite\Excel\Excel::DOMPDF);
+        else if ($type=='pdf')return Excel::download(new AppointmentExport($request->input('date')), 'Medicamentos '.$request->input('date').'.pdf',\Maatwebsite\Excel\Excel::MPDF);
         else abort(404);
     }
 

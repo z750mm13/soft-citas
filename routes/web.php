@@ -45,9 +45,5 @@ Route::post('consultations/{consultation_id}/edit', ['as' => 'consultations.edit
 Route::resource('consultations', ConsultationController::class)
     ->except(['create','edit'])
     ->middleware('auth');
-Route::get('/print',function () {
-    $pdf = \PDF::loadView('ejemplo');
-    return $pdf->download('ejemplo.pdf');
-})->middleware('auth');
 
 Auth::routes();
