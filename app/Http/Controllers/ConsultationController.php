@@ -31,11 +31,11 @@ class ConsultationController extends Controller {
         if($type=='excel')
         return Excel::download(
             new ConsultationExport($request->input('date'),$request->input('datatype')=='Semana'),
-            'Medicamentos '.$request->input('date').'.xlsx'
+            'Consultas '.$request->input('date').'.xlsx'
         );
         else if ($type=='pdf')return Excel::download(
             new ConsultationExport($request->input('date'),$request->input('datatype')=='Semana'),
-            'Medicamentos '.$request->input('date').'.pdf',\Maatwebsite\Excel\Excel::MPDF
+            'Consultas '.$request->input('date').'.pdf',\Maatwebsite\Excel\Excel::MPDF
         );
         else abort(404);
     }

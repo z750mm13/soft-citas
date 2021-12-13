@@ -1,13 +1,18 @@
 <html>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <table>
+
     <tr>
-        <th><img src="{{ asset('resources/img/Salud.jpg') }}" alt="Salud" width="153" height="83"></th>
-        <th colspan="2" style="text-align:center;">San Juan Teponaxtla</th>
-        <th><img src="{{ asset('resources/img/imss.png') }}" alt="Salud" width="83" height="83"></th>
+        <th colspan="4" style="text-align:center;">Instituto Mexicano del Seguro Social</th>
     </tr>
     <tr>
-        <th colspan="4" style="text-align:center;">Unidad rural</th>
+        <th colspan="4" style="text-align:center;">Programa IMSS prospera</th>
+    </tr>
+    <tr>
+        <th colspan="4" style="text-align:center;">UMR 119, San Juan Teponaxtla</th>
+    </tr>
+    <tr>
+        <th colspan="4" style="text-align:center;"></th>
     </tr>
     <thead>
         <tr>
