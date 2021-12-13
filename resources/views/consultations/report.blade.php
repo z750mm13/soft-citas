@@ -1,7 +1,15 @@
 <html>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<table class="table table-hover p-0 mb-0">
-    <thead class="thead-light">
+<table>
+    <tr>
+        <th><img src="{{ asset('resources/img/Salud.jpg') }}" alt="Salud" width="153" height="83"></th>
+        <th colspan="2" style="text-align:center;">San Juan Teponaxtla</th>
+        <th><img src="{{ asset('resources/img/imss.png') }}" alt="Salud" width="83" height="83"></th>
+    </tr>
+    <tr>
+        <th colspan="4" style="text-align:center;">Unidad rural</th>
+    </tr>
+    <thead>
         <tr>
           <th scope="col">Asunto</th>
           <th scope="col">Paciente</th>
