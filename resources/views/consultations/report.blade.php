@@ -1,10 +1,9 @@
 <html>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <table>
-
     <tr>
         <th colspan="3" style="text-align:center;">Instituto Mexicano del Seguro Social</th>
-        <th rowspan="3" style="text-align:center;"><img src="https://lh3.googleusercontent.com/proxy/QCuf0tu5CIyrBxHP07dCvCmLC3fIoDFZC-EriaXJR4okk0_o9mdlVn0g9LVyuozu7FS5-tkVumClUd3GOuWYP3JDmcj5SH9JaHETYwGK3tm2ZGWESR2anQfV" alt="logo IMSS"></th>
+        <th rowspan="3"></th>
     </tr>
     <tr>
         <th colspan="3" style="text-align:center;">Programa IMSS prospera</th>
@@ -14,6 +13,12 @@
     </tr>
     <tr>
         <th colspan="3" style="text-align:center;"></th>
+    </tr>
+    <tr>
+        <th colspan="4" style="text-align:center;"></th>
+    </tr>
+    <tr>
+        <th colspan="4" style="text-align:center;"></th>
     </tr>
     <thead>
         <tr>

@@ -40,7 +40,7 @@
                         <th scope="col">Paciente</th>
                         <th scope="col">Medico</th>
                         <th scope="col">Fecha/Hora</th>
-                        <th scope="col"></th>x
+                        <th scope="col"></th>
                       </tr>
                     </thead>
                     <tbody>
