@@ -1,11 +1,19 @@
+<?php
+use Carbon\Carbon;
+$meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+$fecha = Carbon::now();
+$mes = $meses[($fecha->format('n')) - 1];
+?>
 <div class="card">
     <div class="card-header">{{ __('Citas de hoy') }}</div>
 
     <div class="card-body">
-        <h5 class="card-title mt-2 mb-4">23 de Noviembre de 2021</h5>
-        <h6 class="card-subtitle text-muted">10:00 am</h6>
-        <p class="card-text mb-5">Nombre Apellido1 Apellido2</p>
-        <h6 class="card-subtitle text-muted">11:00 am</h6>
-        <p class="card-text mb-5">Nombre2 Apellido1 Apellido2</p>
+        <h5 class="card-title mt-2 mb-4">{{ $fecha->format('d') . ' de ' . $mes . ' de ' . $fecha->format('Y') }}</h5>
+        @forelse($appointments as $appointment)
+        <h6 class="card-subtitle text-muted">{{ $appointment->datetime->format('H:i') }}</h6>
+        <p class="card-text mb-5">{{ $appointment->patient->name.' '.$appointment->patient->lastname.' '.$appointment->patient->postlastname }}</p>
+        @empty
+        <p class="card-text mb-5">No hay citas para hoy</p>
+        @endforelse
     </div>
 </div>
