@@ -22,32 +22,30 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('patients', PatientController::class)->middleware('auth');
 
 /**
- * TODO roles de medicamentos
+ * Roles de medicamentos
  * ENFERMERAS
  *-> CRUD conpleto
  */
 Route::get('medicines/{type}/report',[
     'as' => 'medicines.report',
     'uses' => 'MedicineController@report']
-)->middleware('auth');
-Route::resource('medicines', MedicineController::class)->middleware('auth');
+);
+Route::resource('medicines', MedicineController::class);
 
 /**
- * TODO roles de citas
+ * Roles de citas
  * ENFERMERAS
- *-> Reportes
- *-> Altas
- *-> Consultas
+ *-> CRUD Completo
  */
 // Genera reportes de citas -> Dia Semana Mes
 Route::get('appointments/{type}/report',[
     'as' => 'appointments.report',
     'uses' => 'AppointmentController@report']
-)->middleware('auth');
-Route::resource('appointments', AppointmentController::class)->middleware('auth');
+);
+Route::resource('appointments', AppointmentController::class);
 
 /**
- * TODO roles de consultas
+ * Roles de consultas
  * ENFERMERAS
  *-> Reportes
  */

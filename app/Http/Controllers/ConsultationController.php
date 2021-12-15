@@ -13,6 +13,11 @@ use App\Exports\PrescriptionExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ConsultationController extends Controller {
+
+    function __construct() {
+        $this->middleware('auth');
+        $this->middleware('role')->only(['create', 'store']);
+    }
     /**
      * Display a listing of the resource. Das consultation.
      *

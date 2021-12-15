@@ -49,7 +49,7 @@
                         <th>{{$consultation->appointment->type}}</th>
                         <td>{{$consultation->appointment->patient->name.' '.$consultation->appointment->patient->lastname}}</td>
                         <td>{{$consultation->appointment->user->name.' '.$consultation->appointment->user->lastname}}</td>
-                        <td>{{$consultation->created_at->format('d-m-Y H:i')}}</td>
+                        <td>{{$consultation->created_at->format('d-m-Y g:i A')}}</td>
                         <td>
                           <div class="dropdown">
                               <button class="btn btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

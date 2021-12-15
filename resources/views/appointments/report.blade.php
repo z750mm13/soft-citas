@@ -34,7 +34,7 @@
           <th>{{$appointment->type}}</th>
           <td>{{$appointment->patient->name.' '.$appointment->patient->lastname}}</td>
           <td>{{$appointment->user->name.' '.$appointment->user->lastname}}</td>
-          <td>{{$appointment->datetime->format('d-m-Y H:i')}}</td>
+          <td>{{$appointment->datetime->format('d-m-Y g:i A')}}</td>
         </tr>
         @endforeach
       </tbody>

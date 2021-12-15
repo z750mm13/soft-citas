@@ -10,6 +10,10 @@ use App\Exports\AppointmentExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class AppointmentController extends Controller {
+
+    function __construct() {
+        $this->middleware('auth');
+    }
     
     /**
      * Display a listing of the resource.
@@ -25,9 +29,9 @@ class AppointmentController extends Controller {
         if($patient_id)$appointments->where('patient_id', $patient_id);
         if($user_id)$appointments->where('user_id', $user_id);
         if($date)$appointments->where('datetime', 'like', $date.'%');
-        $appointments=$appointments->get();
+        $appointments=$appointments->orderByDesc('datetime')->get();
 
-        $doctors = User::all();
+        $doctors = User::all()->where('rol', 'Encargado de la unidad');
         $patients = Patient::all();
         return view('appointments.index', compact('appointments','doctors','patients', 'patient_id','user_id','date'));
     }

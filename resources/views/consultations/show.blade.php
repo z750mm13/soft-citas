@@ -14,9 +14,11 @@
         <hr class="red">
     </div>
 
+    @if(Auth::user()->rol == 'Encargado de la unidad')
     <div class="form-group">
       <a class="btn btn-primary btn-sm" href="{{route("consultations.prescriptions",[$consultation->id])}}" onclick="dateForm('pdf')" role="button"><i class="far fa-file-pdf"></i> Imprimir</a>
     </div>
+    @endif
 
     <div class="card mb-5 shadow">
         <div class="card-header">

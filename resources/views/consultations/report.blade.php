@@ -34,7 +34,7 @@
           <th>{{$consultation->appointment->type}}</th>
           <td>{{$consultation->appointment->patient->name.' '.$consultation->appointment->patient->lastname}}</td>
           <td>{{$consultation->appointment->user->name.' '.$consultation->appointment->user->lastname}}</td>
-          <td>{{$consultation->created_at->format('d-m-Y H:i')}}</td>
+          <td>{{$consultation->created_at->format('d-m-Y g:i A')}}</td>
         </tr>
         @endforeach
       </tbody>

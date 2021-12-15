@@ -89,17 +89,16 @@
                         </th>
                         <td>{{$appointment->patient->name.' '.$appointment->patient->lastname}}</td>
                         <td>{{$appointment->user->name.' '.$appointment->user->lastname}}</td>
-                        <td>{{$appointment->datetime->format('d-m-Y H:i')}}</td>
+                        <td>{{$appointment->datetime->format('d-m-Y g:i A')}}</td>
                         <td>
                           <div class="dropdown">
                               <button class="btn btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                   <i class="fas fa-ellipsis-v"></i>
                               </button>
                               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                {{-- TODO: hacer el acceos a la receta --}}
                                 @if($appointment->consultation)
                                 <a href="/consultations/{{$appointment->consultation->id}}" class="text-decoration-none"><button class="dropdown-item"><i class="fas fa-notes-medical"></i> Ver</button></a>
-                                @else
+                                @elseif (Auth::user()->admin)
                                 <a href="/consultations/{{$appointment->id}}/create" class="text-decoration-none"><button class="dropdown-item"><i class="far fa-edit"></i> Realizar</button></a>
                                 @endif
                                 @if(!$appointment->consultation)
