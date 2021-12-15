@@ -14,8 +14,7 @@ class MedicineExport extends BaseExport implements FromView {
     /**
     * @return \Illuminate\Support\Collection
     */
-    public function view(): View
-    {
+    public function view(): View {
         return view('medicines.report', [
             'medicines' => Medicine::all()
         ]);

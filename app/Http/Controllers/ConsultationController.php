@@ -9,6 +9,7 @@ use App\Medicine;
 use App\Prescription;
 use Illuminate\Support\Facades\Hash;
 use App\Exports\ConsultationExport;
+use App\Exports\PrescriptionExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ConsultationController extends Controller {
@@ -38,6 +39,18 @@ class ConsultationController extends Controller {
             'Consultas '.$request->input('date').'.pdf',\Maatwebsite\Excel\Excel::MPDF
         );
         else abort(404);
+    }
+
+    /**
+     * Generate a file with listing of the resource. Das Appountment.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function prescriptionReport($consultation_id) {
+        return Excel::download(
+            new PrescriptionExport($consultation_id),
+            'Receta '.$consultation_id.'.pdf',\Maatwebsite\Excel\Excel::MPDF
+        );
     }
 
     /**

@@ -44,6 +44,14 @@ Route::get('consultations/{type}/report',[
     'as' => 'consultations.report',
     'uses' => 'ConsultationController@report']
 )->middleware('auth');
+/**
+ * TODO generar reportes de consultas -> Dia Semana Mes
+ */
+Route::get('prescriptions/{consultation_id}/report',[
+    'as' => 'consultations.prescriptions',
+    'uses' => 'ConsultationController@prescriptionReport']
+)->middleware('auth');
+
 Route::get('consultations/{appointment}/create', ['as' => 'consultations.create', 'uses' => 'ConsultationController@create'])->middleware('auth');
 Route::post('consultations/{appointment_id}', ['as' => 'consultations.create', 'uses' => 'ConsultationController@create'])->middleware('auth');
 Route::post('consultations/{consultation_id}/edit', ['as' => 'consultations.edit', 'uses' => 'ConsultationController@edit'])->middleware('auth');
