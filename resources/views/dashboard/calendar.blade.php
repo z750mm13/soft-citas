@@ -12,17 +12,19 @@
 <script defer>
     document.addEventListener('DOMContentLoaded', function() {
       events = [
-        { // this object will be "parsed" into an Event Object
-          title: 'C', // a property!
-          start: '2018-09-01', // a property!
-          end: '2018-09-02' // a property! ** see important note below about 'end' **
-        }
+        @foreach ($events as $event) { // this object will be "parsed" into an Event Object
+          title: '{{$event->patient->name}}', // a property!
+          start: '{{$event->datetime->format("Y-m-d")}}', // a property!
+          end: '{{$event->datetime->addDay()->format("Y-m-d")}}' // a property! ** see important note below about 'end' **
+        },
+        @endforeach
       ];
       var calendarEl = document.getElementById('calendar');
       var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         locale: 'es',
 				contentHeight: 'auto',
+        events
       });
       calendar.render();
     });

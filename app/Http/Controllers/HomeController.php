@@ -23,6 +23,7 @@ class HomeController extends Controller {
      */
     public function index() {
         $appointments = Appointment::where('datetime','like','%'.Carbon::now()->format('Y-m-d').'%')->get();
-        return view('home', compact('appointments'));
+        $events = Appointment::where('datetime','like','%'.Carbon::now()->format('Y-m').'%')->get();
+        return view('home', compact('appointments','events'));
     }
 }
