@@ -21,6 +21,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('patients', PatientController::class)->middleware('auth');
 
+/**
+ * TODO roles de medicamentos
+ * ENFERMERAS
+ *-> CRUD conpleto
+ */
 Route::get('medicines/{type}/report',[
     'as' => 'medicines.report',
     'uses' => 'MedicineController@report']
@@ -28,9 +33,13 @@ Route::get('medicines/{type}/report',[
 Route::resource('medicines', MedicineController::class)->middleware('auth');
 
 /**
- * Genera reportes de citas -> Dia Semana Mes
+ * TODO roles de citas
+ * ENFERMERAS
+ *-> Reportes
+ *-> Altas
+ *-> Consultas
  */
-
+// Genera reportes de citas -> Dia Semana Mes
 Route::get('appointments/{type}/report',[
     'as' => 'appointments.report',
     'uses' => 'AppointmentController@report']
@@ -38,20 +47,20 @@ Route::get('appointments/{type}/report',[
 Route::resource('appointments', AppointmentController::class)->middleware('auth');
 
 /**
- * TODO generar reportes de consultas -> Dia Semana Mes
+ * TODO roles de consultas
+ * ENFERMERAS
+ *-> Reportes
  */
+// Genera reportes de consultas -> Dia Semana Mes
 Route::get('consultations/{type}/report',[
     'as' => 'consultations.report',
     'uses' => 'ConsultationController@report']
 )->middleware('auth');
-/**
- * TODO generar reportes de consultas -> Dia Semana Mes
- */
+// Genera reportes de consultas -> Dia Semana Mes
 Route::get('prescriptions/{consultation_id}/report',[
     'as' => 'consultations.prescriptions',
     'uses' => 'ConsultationController@prescriptionReport']
 )->middleware('auth');
-
 Route::get('consultations/{appointment}/create', ['as' => 'consultations.create', 'uses' => 'ConsultationController@create'])->middleware('auth');
 Route::post('consultations/{appointment_id}', ['as' => 'consultations.create', 'uses' => 'ConsultationController@create'])->middleware('auth');
 Route::post('consultations/{consultation_id}/edit', ['as' => 'consultations.edit', 'uses' => 'ConsultationController@edit'])->middleware('auth');
