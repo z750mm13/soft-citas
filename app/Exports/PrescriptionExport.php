@@ -35,8 +35,9 @@ class PrescriptionExport implements FromView, WithEvents, WithDrawings {
             AfterSheet::class => function(AfterSheet $event) {
                 $cellRange = $this->cellRange; // All headers
                 $event->sheet->getDelegate()->getColumnDimension('A')->setWidth(70);
-                $event->sheet->getDelegate()->getRowDimension('9')->setRowHeight(30);
-                $event->sheet->getDelegate()->getRowDimension('11')->setRowHeight(30);
+                $event->sheet->getDelegate()->getRowDimension('7')->setRowHeight(9);
+                $event->sheet->getDelegate()->getRowDimension('10')->setRowHeight(30);
+                $event->sheet->getDelegate()->getRowDimension('12')->setRowHeight(30);
                 $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(16);
                 $event->sheet->getDelegate()->getStyle(str_replace($cellRange, '1', '2'))->getFont()->setSize(12);
                 $event->sheet->getDelegate()->getStyle(str_replace($cellRange, '1', '3'))->getFont()->setSize(12);

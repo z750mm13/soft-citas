@@ -18,15 +18,18 @@
             <th colspan="4" style="text-align:right;">{{$consultation->created_at->format('d/m/Y')}}</th>
         </tr>
         <tr>
-            <th colspan="4">
-                <h5 class="card-title mt-1">Medico</h5>
-                <p class="card-text">{{$consultation->appointment->user->name. ' ' .$consultation->appointment->user->lastname}}</p>
-            </th>
+            <th></th>
         </tr>
         <tr>
-            <th colspan="4">
-                <h5 class="card-title mt-1" style="text-align:right;">Paciente</h5>
-                <p class="card-text">{{$consultation->appointment->patient->name. ' ' .$consultation->appointment->patient->lastname}}</p>
+            <th colspan="2"><b><h4>Medico</h4></b></th>
+            <th colspan="2" style="text-align:right;"><b><h4>Paciente</h4></b></th>
+        </tr>
+        <tr>
+            <th colspan="2">
+                <p>{{$consultation->appointment->user->name. ' ' .$consultation->appointment->user->lastname}}</p>
+            </th>
+            <th colspan="2" style="text-align:right;">
+                <p>{{$consultation->appointment->patient->name. ' ' .$consultation->appointment->patient->lastname}}</p>
             </th>
         </tr>
         <tr>
@@ -39,11 +42,25 @@
             <th colspan="4"></th>
         </tr>
         <tbody>
+            <?php $line = 0; ?>
             @foreach($consultation->prescriptions as $prescription)
             <tr>
-                <th colspan="4">{{$prescription->medicine->name}}: {{$prescription->dose}}{{$prescription->description?', '.$prescription->description:''}}.</th>
+                <th colspan="4"><b>{{$prescription->medicine->name}}</b>:</th>
+                <?php $line++; ?>
             </tr>
+            @if($prescription->dose || $prescription->description)
+            <tr>
+                <th>{{$prescription->dose}}{{$prescription->description?', '.$prescription->description:''}}.</th>
+                <?php $line++; ?>
+            </tr>
+            @endif
             @endforeach
+            <tr>
+                <th colspan="4" style="text-align:right;">___________________________</th>
+            </tr>
+            <tr>
+                <th colspan="4" style="text-align:right;">FIRMA DEL MEDICO</th>
+            </tr>
         </tbody>
     </table>
 </html>
