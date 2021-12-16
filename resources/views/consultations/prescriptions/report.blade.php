@@ -21,7 +21,7 @@
             <th></th>
         </tr>
         <tr>
-            <th colspan="2"><b><h4>Medico</h4></b></th>
+            <th colspan="2"><b><h4>Médico</h4></b></th>
             <th colspan="2" style="text-align:right;"><b><h4>Paciente</h4></b></th>
         </tr>
         <tr>
