@@ -31,7 +31,7 @@ class MedicineController extends Controller {
     public function report($type) {
         if($type=='excel')
         return Excel::download(new MedicineExport, 'Medicamentos.xlsx');
-        else if ($type=='pdf')return Excel::download(new MedicineExport, 'Medicamentos.pdf',\Maatwebsite\Excel\Excel::MPDF);
+        else if ($type=='pdf')return Excel::download(new MedicineExport(true), 'Medicamentos.pdf',\Maatwebsite\Excel\Excel::MPDF);
         else abort(404);
     }
 

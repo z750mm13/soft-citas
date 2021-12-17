@@ -2,16 +2,19 @@
 
 namespace App\Exports;
 
-use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Events\AfterSheet;
 use Maatwebsite\Excel\Concerns\WithDrawings;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 
-class BaseExport implements ShouldAutoSize, WithEvents, WithDrawings {
+class BaseExport implements WithEvents, WithDrawings {
     protected $cellRange = 'A1:W1';
-    function _construct($cellRange){
+    protected $sizes = [];
+    protected $pdf = false;
+    function _construct($cellRange, $sizes = array(), $pdf = false) {
         $this->cellRange = $cellRange;
+        $this->sizes = $sizes;
+        $this->pdf = $pdf;
     }
     /**
      * @return array
@@ -19,6 +22,10 @@ class BaseExport implements ShouldAutoSize, WithEvents, WithDrawings {
     public function registerEvents(): array {
         return [
             AfterSheet::class => function(AfterSheet $event) {
+                foreach ($this->sizes as $size) {
+                    $event->sheet->getDelegate()->getColumnDimension($size['name'])->setWidth(($size['value'])+($this->pdf?5:0));
+                }
+
                 $cellRange = $this->cellRange; // All headers
                 $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(16);
                 $event->sheet->getDelegate()->getStyle('A7:D7')->getFont()->setSize(14);

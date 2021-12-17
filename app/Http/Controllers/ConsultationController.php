@@ -40,7 +40,7 @@ class ConsultationController extends Controller {
             'Consultas '.$request->input('date').'.xlsx'
         );
         else if ($type=='pdf')return Excel::download(
-            new ConsultationExport($request->input('date'),$request->input('datatype')=='Semana'),
+            new ConsultationExport($request->input('date'),$request->input('datatype')=='Semana',true),
             'Consultas '.$request->input('date').'.pdf',\Maatwebsite\Excel\Excel::MPDF
         );
         else abort(404);
