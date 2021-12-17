@@ -21,6 +21,7 @@ class BaseExport implements ShouldAutoSize, WithEvents, WithDrawings {
             AfterSheet::class => function(AfterSheet $event) {
                 $cellRange = $this->cellRange; // All headers
                 $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(16);
+                $event->sheet->getDelegate()->getStyle('A7:D7')->getFont()->setSize(14);
                 $event->sheet->getDelegate()->getStyle(str_replace($cellRange, '1', '2'))->getFont()->setSize(12);
                 $event->sheet->getDelegate()->getStyle(str_replace($cellRange, '1', '3'))->getFont()->setSize(12);
                 $event->sheet->getDelegate()->getStyle(str_replace($cellRange, '1', '6'))->getFont()->setSize(14);
