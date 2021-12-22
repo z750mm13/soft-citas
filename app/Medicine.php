@@ -13,4 +13,14 @@ class Medicine extends Model {
     protected $fillable = [
         'name','expiration','barcode','stock',
     ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
 }
