@@ -45,11 +45,11 @@ class AppointmentController extends Controller {
         if($type=='excel')
         return Excel::download(
             new AppointmentExport($request->input('date'),$request->input('datatype')=='Semana'),
-            'Medicamentos '.$request->input('date').'.xlsx'
+            'Citas '.$request->input('date').'.xlsx'
         );
         else if ($type=='pdf')return Excel::download(
             new AppointmentExport($request->input('date'),$request->input('datatype')=='Semana',true),
-            'Medicamentos '.$request->input('date').'.pdf',\Maatwebsite\Excel\Excel::MPDF
+            'Citas '.$request->input('date').'.pdf',\Maatwebsite\Excel\Excel::MPDF
         );
         else abort(404);
     }

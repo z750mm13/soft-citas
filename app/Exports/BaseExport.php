@@ -11,10 +11,12 @@ class BaseExport implements WithEvents, WithDrawings {
     protected $cellRange = 'A1:W1';
     protected $sizes = [];
     protected $pdf = false;
+    private   $endColumn = 'W';
     function _construct($cellRange, $sizes = array(), $pdf = false) {
         $this->cellRange = $cellRange;
         $this->sizes = $sizes;
         $this->pdf = $pdf;
+        $this->endColumn = substr($this->cellRange, -2, 1);
     }
     /**
      * @return array
@@ -28,12 +30,12 @@ class BaseExport implements WithEvents, WithDrawings {
 
                 $cellRange = $this->cellRange; // All headers
                 $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(16);
-                $event->sheet->getDelegate()->getStyle('A7:D7')->getFont()->setSize(14);
+                $event->sheet->getDelegate()->getStyle('A7:'.$this->endColumn.'7')->getFont()->setSize(14);
                 $event->sheet->getDelegate()->getStyle(str_replace($cellRange, '1', '2'))->getFont()->setSize(12);
                 $event->sheet->getDelegate()->getStyle(str_replace($cellRange, '1', '3'))->getFont()->setSize(12);
                 $event->sheet->getDelegate()->getStyle(str_replace($cellRange, '1', '6'))->getFont()->setSize(14);
 
-                $event->sheet->getStyle('D1:D3')->applyFromArray([
+                $event->sheet->getStyle($this->endColumn.'1:'.$this->endColumn.'3')->applyFromArray([
                     'borders' => [
                         'left' => [
                             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
@@ -45,7 +47,7 @@ class BaseExport implements WithEvents, WithDrawings {
                         ],
                     ],
                 ]);
-                $event->sheet->getStyle('A3:D3')->applyFromArray([
+                $event->sheet->getStyle('A3:'.$this->endColumn.'3')->applyFromArray([
                     'borders' => [
                         'bottom' => [
                             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
@@ -63,7 +65,7 @@ class BaseExport implements WithEvents, WithDrawings {
         $drawing->setDescription('This is imss logo');
         $drawing->setPath(public_path('resources/img/imss.png'));
         $drawing->setHeight(60);
-        $drawing->setCoordinates('D1');
+        $drawing->setCoordinates($this->endColumn.'1');
         $drawing->setOffsetX(5);
 
         return $drawing;

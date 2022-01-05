@@ -11,7 +11,7 @@ class AppointmentExport extends BaseExport implements FromView {
     private $creation = null;
     private $week = null;
     function __construct($creation, $week, $pdf = false) {
-        parent::_construct('A1:D1',[
+        parent::_construct('A1:E1',[
             [
                 'name' => 'A',
                 'value' => 17
@@ -23,7 +23,10 @@ class AppointmentExport extends BaseExport implements FromView {
                 'value' => 18
             ],[
                 'name' => 'D',
-                'value' => 17.5
+                'value' => 8.44
+            ],[
+                'name' => 'E',
+                'value' => 9.44
             ],
         ], $pdf);
         $this->creation = $creation;
