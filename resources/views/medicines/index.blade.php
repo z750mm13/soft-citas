@@ -64,9 +64,9 @@
                     </thead>
                     <tbody>
                       @foreach($medicines as $medicine)
-                      <tr class="{{ $medicine->expiration->lte( now() )? 'table-danger' : '' }}">
+                      <tr @if($medicine->expiration->lte( now() ))class="table-danger"@endif>
                         <th>{{$medicine->name}}</th>
-                        <td>{{$medicine->expiration}}</td>
+                        <td>{{$medicine->expiration->format('d/m/Y')}}</td>
                         <td>{{$medicine->barcode}}</td>
                         <td>{{$medicine->stock}}</td>
                         <td>
