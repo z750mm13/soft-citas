@@ -21,6 +21,23 @@
       <a class="btn btn-primary btn-sm" href="{{route('medicines.report',['pdf'])}}" role="button"><i class="far fa-file-pdf"></i> Generar PDF</a> <a class="btn btn-sm btn-default" href="{{route('medicines.report',['excel'])}}" role="button"><i class="far fa-file-excel"></i> Generar Excel</a>
     </div>
 
+    <form>
+      <div class="row">
+        <div class="col-md-10 col-sm-12 mb-4">
+          <div class="row">
+            <label for="sdate" class="col-sm-2 col-form-label">Caducidad</label>
+            <div class="col-sm-10">
+              <input type="month" class="form-control" name="date" id="sdate" value="{{ $date }}">
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2 col-sm-12 mb-4 text-right">
+          <button type="submint" class="btn btn-sm btn-primary">Filtrar</button>
+          <a href="{{ route('medicines.index') }}" class="btn btn-default btn-sm" role="button">Limpiar</a>
+        </div>
+      </div>
+    </form>
+
     <div class="card mb-5 shadow">
         <div class="card-body p-0">
             <div class="row m-4 align-items-center">
@@ -47,7 +64,7 @@
                     </thead>
                     <tbody>
                       @foreach($medicines as $medicine)
-                      <tr>
+                      <tr class="{{ $medicine->expiration->lte( now() )? 'table-danger' : '' }}">
                         <th>{{$medicine->name}}</th>
                         <td>{{$medicine->expiration}}</td>
                         <td>{{$medicine->barcode}}</td>

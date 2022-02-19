@@ -18,9 +18,15 @@ class MedicineController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
-        $medicines = Medicine::all();
-        return view('medicines.index', compact('medicines'));
+    public function index(Request $request) {
+        $date = $request->input('date');
+        
+        $medicines = Medicine::select('*');
+        if($date)$medicines->where('expiration', 'like', $date.'%');
+        $medicines->orderBy('name');
+        $medicines = $medicines->get();
+        
+        return view('medicines.index', compact('medicines','date'));
     }
 
     /**
