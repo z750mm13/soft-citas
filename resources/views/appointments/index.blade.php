@@ -50,6 +50,12 @@
       </div>
     </form>
 
+    <div class="card shadow mb-5">
+      <div class="card-body p-3">
+        <canvas id="chart-line" height="400"></canvas>
+      </div>
+    </div>
+
     <div class="card mb-5 shadow">
         <div class="card-body p-0">
             <div class="row m-4 align-items-center">
@@ -127,6 +133,30 @@
 @endsection
 
 @push('js')
+<script>
+  let appoimentsChart = null;
+  window.onload = function() {
+    const ctx = document.getElementById('chart-line');
+    appoimentsChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+         'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        datasets: [{
+          label: 'Consultas',
+          data: [12, 19, 3, 5, 2, 3,12, 7, 3, 5, 2, 3],
+          backgroundColor: 'rgba(157, 36, 73, 0.2)',
+          borderColor: 'rgba(157, 36, 73, 1)',
+          borderWidth: 2
+        }]
+      },
+      options: {
+        maintainAspectRatio: false,
+        responsive: true
+      }
+    });
+  };
+</script>
 <script>
   let appointments = [
       @foreach($appointments as $appointment){
