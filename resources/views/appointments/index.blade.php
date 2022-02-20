@@ -52,7 +52,10 @@
 
     <div class="card shadow mb-5">
       <div class="card-body p-3">
-        <canvas id="chart-line" height="400"></canvas>
+        <button onclick="updateAppointmentsChart()" class="btn btn-sm btn-primary">Cambio</button>
+        <div>
+          <canvas id="chart-line" height="400"></canvas>
+        </div>
       </div>
     </div>
 
@@ -134,10 +137,11 @@
 
 @push('js')
 <script>
-  let appoimentsChart = null;
+  let appointmentsChart = null;
+
   window.onload = function() {
     const ctx = document.getElementById('chart-line');
-    appoimentsChart = new Chart(ctx, {
+    appointmentsChart = new Chart(ctx, {
       type: 'line',
       data: {
         labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
@@ -156,6 +160,21 @@
       }
     });
   };
+
+  function updateChart(chart) {
+    //Titulo
+    chart.data.datasets[0].label = 'Mensual';
+    //Etiquetas
+    chart.data['labels'] = ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'];
+    //Datos
+    chart.data.datasets[0].data = [19, 3, 5, 2, 3, 12, 3, 2, 5, 3, 19, 12];
+    //Efectuar cambios
+    chart.update();
+  }
+
+  function updateAppointmentsChart() {
+    updateChart(appointmentsChart);
+  }
 </script>
 <script>
   let appointments = [
