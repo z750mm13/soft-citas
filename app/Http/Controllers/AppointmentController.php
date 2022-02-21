@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Appointment;
 use App\User;
 use App\Patient;
@@ -21,15 +22,20 @@ class AppointmentController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request) {
+        // Filtrer requests params
         $patient_id = $request->input('patient_id');
         $user_id = $request->input('user_id');
         $date = $request->input('date');
+        // Filter requests chart
         $statisticDate = $request->input('statisticDate');
         $dateState = $request->input('dateState');
-
-        $year = now()->format('Y');
-
-        dd($statisticDate, $dateState);
+        $statisticYear = $request->input('statisticYear');
+        if(!$statisticYear) $statisticYear = now()->format('Y');
+        // Output chart data
+        $data = array();
+        if ($dateState == 'Dia') $data = $this->appointmentsDay($statisticDate);
+        elseif ($dateState == 'Mes') $data = $this->appointmentsMounth($statisticDate);
+        else $data = $this->appointmentsYear($statisticYear);
 
         $appointments = Appointment::select('*');
         if($patient_id)$appointments->where('patient_id', $patient_id);
@@ -40,8 +46,44 @@ class AppointmentController extends Controller {
         $doctors = User::all()->where('rol', 'Encargado de la unidad');
         $patients = Patient::all();
         return view('appointments.index', compact('appointments','doctors','patients',
-            'patient_id','user_id','date', 'statisticDate', 'dateState', 'year'
+            'patient_id','user_id','date', 'statisticDate', 'dateState', 'statisticYear', 'data'
         ));
+    }
+
+    /**
+     * Query to get report of days in array data format
+     * @param  String
+     * @return Array
+     */
+    private function appointmentsDay($selectedDay = null) {
+        $data = array(3, 1, 2, 5, 2, 6, 3, 4);
+        $appointments = Appointment::select(DB::raw('count(id)'))
+        ->where('datetime', 'like', $selectedDay.'%');
+        return $data;
+    }
+
+    /**
+     * Query to get report of mounth in array data format
+     * @param  String
+     * @return Array
+     */
+    private function appointmentsMounth($selectedDay = null) {
+        $data = array(3, 1, 2, 5, 2, 6, 3);
+        $appointments = Appointment::select(DB::raw('count(id)'))
+        ->where('datetime', 'like', $selectedDay.'%');
+        return $data;
+    }
+
+    /**
+     * Query to get report of mounth in array data format
+     * @param  String
+     * @return Array
+     */
+    private function appointmentsYear($statisticDate) {
+        $data = array(3, 1, 2, 6, 3);
+        $appointments = Appointment::select(DB::raw('count(id)'))
+        ->where('datetime', 'like', $statisticDate.'%');
+        return $data;
     }
 
     /**

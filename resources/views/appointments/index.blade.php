@@ -77,8 +77,8 @@
                 </div>
                 <div class="form-group">
                   <label for="inputDate">Fecha</label>
-                  <input type="date" class="form-control" id="inputDate" name="statisticDate" aria-describedby="dateHelp">
-                  {{--<input type="number" class="form-control" min="1900" max="2099" step="1" value="{{now()->format('Y')}}" />--}}
+                  <input type="date" class="form-control" id="inputDate" name="statisticDate" aria-describedby="dateHelp" readonly>
+                  <input type="number" id="statisticYear" name="statisticYear" class="form-control" min="1900" max="2099" step="1" value="{{now()->format('Y')}}" readonly/>
                 </div>
               </form>
               <button type="submit" class="btn btn-sm btn-primary" form="updateChar">Generar</button>
@@ -173,13 +173,14 @@
 
   window.onload = function() {
     // Array of days of month
-    let days = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
+    const days = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
     const hours = ['12:00am', '3:00am', '6:00am', '9:00am', '12:00pm', '3:00pm', '6:00pm', '9:00pm'];
-    const labels = "{{$dateState??'null'}}" == "null" || "{{$dateState??'null'}}" == 'Año'? _.range({{$year}}-2,{{$year}}+3) :
+    const labels = "{{$dateState??'null'}}" == "null" || "{{$dateState??'null'}}" == 'Año'? _.range({{$statisticYear}}-2,{{$statisticYear}}+3) :
           "{{$dateState??'null'}}" == 'Mes'? days : hours;
-    const data = _.range(labels.length);//[12, 19, 3, 5, 2, 3,12, 7, 3, 5, 2, 3];
+    const data = {{ json_encode($data) }};
+
     /**
-     * Creacion de la grafica
+     * Making chart
      */
     const ctx = document.getElementById('chart-line');
     appointmentsChart = new Chart(ctx, {
@@ -187,7 +188,7 @@
       data: {
         labels,
         datasets: [{
-          label: "{{$dateState??'Año'}} "+ ("{{$dateState??'null'}}" == 'Año'? "{{$year}}": "{{$statisticDate}}"),
+          label: "{{$dateState??'Año'}} "+ ("{{$dateState??'null'}}" == 'Año'? "{{$statisticYear}}": "{{$statisticDate}}"),
           data,
           backgroundColor: 'rgba(157, 36, 73, 0.2)',
           borderColor: 'rgba(157, 36, 73, 1)',
@@ -203,10 +204,15 @@
     /**
      * Creacion de la funcio del formulario
      */
+     $("#inputDate").hide();
+     $("#inputDate").attr("readonly",false);
+     $("#statisticYear").hide();
+     $("#statisticYear").attr("readonly",false);
      $('#dateState').change(function() {
-        console.log('F');
           $("#inputDate").hide('fast');
+          $("#statisticYear").hide('fast');
           $("#inputDate").val("");
+          $("#statisticYear").val("");
           if (this.value==='Dia') {
               $("#inputDate").attr("type","date");
               $("#inputDate").show('fast');
@@ -214,8 +220,7 @@
               $("#inputDate").attr("type","month");
               $("#inputDate").show('fast');
           } else if(this.value==='Año'){
-              $("#inputDate").attr("type","year");
-              $("#inputDate").show('fast');
+              $("#statisticYear").show('fast');
           }
       })
   };
