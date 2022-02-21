@@ -24,6 +24,12 @@ class AppointmentController extends Controller {
         $patient_id = $request->input('patient_id');
         $user_id = $request->input('user_id');
         $date = $request->input('date');
+        $statisticDate = $request->input('statisticDate');
+        $dateState = $request->input('dateState');
+
+        $year = now()->format('Y');
+
+        dd($statisticDate, $dateState);
 
         $appointments = Appointment::select('*');
         if($patient_id)$appointments->where('patient_id', $patient_id);
@@ -33,7 +39,9 @@ class AppointmentController extends Controller {
 
         $doctors = User::all()->where('rol', 'Encargado de la unidad');
         $patients = Patient::all();
-        return view('appointments.index', compact('appointments','doctors','patients', 'patient_id','user_id','date'));
+        return view('appointments.index', compact('appointments','doctors','patients',
+            'patient_id','user_id','date', 'statisticDate', 'dateState', 'year'
+        ));
     }
 
     /**

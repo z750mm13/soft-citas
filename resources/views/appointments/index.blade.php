@@ -50,11 +50,43 @@
       </div>
     </form>
 
-    <div class="card shadow mb-5">
-      <div class="card-body p-3">
-        <button onclick="updateAppointmentsChart()" class="btn btn-sm btn-primary">Cambio</button>
-        <div>
-          <canvas id="chart-line" height="400"></canvas>
+    <div class="accordion mb-5 shadow" id="statisticAccordion">
+      <div class="card">
+        <div class="card-header" id="chartArea">
+          <h2 class="mb-0">
+            <a class="btn btn-link btn-block text-decoration-none text-dark" type="button" data-toggle="collapse" data-target="#statistic" aria-expanded="true" aria-controls="collapseOne">
+              Estadísticas
+            </a>
+          </h2>
+        </div>
+    
+        <div id="statistic" class="collapse show" aria-labelledby="chartArea" data-parent="#statisticAccordion">
+          <div class="card">
+            <div class="card-body p-3">
+              <form action="{{route('appointments.index')}}" method="GET" id="updateChar">
+                @csrf
+                @method('GET')
+                <div class="form-group">
+                    <label for="dateState">Ver citas por</label>
+                    <select class="form-control" id="dateState" name="dateState">
+                        <option selected>Seleccione el tipo</option>
+                        <option>Dia</option>
+                        <option>Mes</option>
+                        <option>Año</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                  <label for="inputDate">Fecha</label>
+                  <input type="date" class="form-control" id="inputDate" name="statisticDate" aria-describedby="dateHelp">
+                  {{--<input type="number" class="form-control" min="1900" max="2099" step="1" value="{{now()->format('Y')}}" />--}}
+                </div>
+              </form>
+              <button type="submit" class="btn btn-sm btn-primary" form="updateChar">Generar</button>
+              <div>
+                <canvas id="chart-line" height="400"></canvas>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -140,15 +172,23 @@
   let appointmentsChart = null;
 
   window.onload = function() {
+    // Array of days of month
+    let days = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
+    const hours = ['12:00am', '3:00am', '6:00am', '9:00am', '12:00pm', '3:00pm', '6:00pm', '9:00pm'];
+    const labels = "{{$dateState??'null'}}" == "null" || "{{$dateState??'null'}}" == 'Año'? _.range({{$year}}-2,{{$year}}+3) :
+          "{{$dateState??'null'}}" == 'Mes'? days : hours;
+    const data = _.range(labels.length);//[12, 19, 3, 5, 2, 3,12, 7, 3, 5, 2, 3];
+    /**
+     * Creacion de la grafica
+     */
     const ctx = document.getElementById('chart-line');
     appointmentsChart = new Chart(ctx, {
       type: 'line',
       data: {
-        labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
-         'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        labels,
         datasets: [{
-          label: 'Consultas',
-          data: [12, 19, 3, 5, 2, 3,12, 7, 3, 5, 2, 3],
+          label: "{{$dateState??'Año'}} "+ ("{{$dateState??'null'}}" == 'Año'? "{{$year}}": "{{$statisticDate}}"),
+          data,
           backgroundColor: 'rgba(157, 36, 73, 0.2)',
           borderColor: 'rgba(157, 36, 73, 1)',
           borderWidth: 2
@@ -159,22 +199,26 @@
         responsive: true
       }
     });
+
+    /**
+     * Creacion de la funcio del formulario
+     */
+     $('#dateState').change(function() {
+        console.log('F');
+          $("#inputDate").hide('fast');
+          $("#inputDate").val("");
+          if (this.value==='Dia') {
+              $("#inputDate").attr("type","date");
+              $("#inputDate").show('fast');
+          } else if(this.value==='Mes'){
+              $("#inputDate").attr("type","month");
+              $("#inputDate").show('fast');
+          } else if(this.value==='Año'){
+              $("#inputDate").attr("type","year");
+              $("#inputDate").show('fast');
+          }
+      })
   };
-
-  function updateChart(chart) {
-    //Titulo
-    chart.data.datasets[0].label = 'Mensual';
-    //Etiquetas
-    chart.data['labels'] = ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'];
-    //Datos
-    chart.data.datasets[0].data = [19, 3, 5, 2, 3, 12, 3, 2, 5, 3, 19, 12];
-    //Efectuar cambios
-    chart.update();
-  }
-
-  function updateAppointmentsChart() {
-    updateChart(appointmentsChart);
-  }
 </script>
 <script>
   let appointments = [
