@@ -76,10 +76,15 @@ class AppointmentController extends Controller {
      * @return Array
      */
     private function appointmentsMounth($selectedDay = null) {
-        $data = array(3, 1, 2, 5, 2, 6, 3);
-        $appointments = Appointment::select(DB::raw('count(id)'))
-        ->where('datetime', 'like', $selectedDay.'%');
-        return $data;
+        $appointments = null;
+        foreach (range(0, 6) as $numberDay) {
+            $nextAppointment = Appointment::select(DB::raw('count(id), '.$numberDay.' as day'))
+            ->where(DB::raw("date_part('dow',datetime) = " .$numberDay. "and null"));
+            if ($numberDay) $appointments = $nextAppointment->union($appointments);
+            else $appointments = $nextAppointment;
+        }
+        $appointments = $appointments->orderBy('day')->get();
+        return $appointments->pluck('count');
     }
 
     /**
@@ -87,11 +92,16 @@ class AppointmentController extends Controller {
      * @param  String
      * @return Array
      */
-    private function appointmentsYear($statisticDate) {
-        $data = array(3, 1, 2, 6, 3);
-        $appointments = Appointment::select(DB::raw('count(id)'))
-        ->where('datetime', 'like', $statisticDate.'%');
-        return $data;
+    private function appointmentsYear($yearSelected) {// cuartos para gente sola
+        $appointments = null;
+        foreach (range($yearSelected-2, $yearSelected+2) as $index => $numberYear) {
+            $nextAppointment = Appointment::select(DB::raw('count(id), '.$numberYear.' as year'))
+            ->where('datetime','like', $numberYear.'%');
+            if ($index) $appointments = $nextAppointment->union($appointments);
+            else $appointments = $nextAppointment;
+        }
+        $appointments = $appointments->orderBy('year')->get();
+        return $appointments->pluck('count');
     }
 
     /**

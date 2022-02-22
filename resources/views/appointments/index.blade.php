@@ -173,7 +173,7 @@
 
   window.onload = function() {
     // Array of days of month
-    const days = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
+    const days = ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'];
     const hours = ['12:00am-2:59am', '3:00am-5:59am', '6:00am-8:59am', '9:00am-11:59am', '12:00pm-2:59pm', '3:00pm-5:59pm', '6:00pm-8:59pm', '9:00pm-11:59pm'];
     const labels = "{{$dateState??'null'}}" == "null" || "{{$dateState??'null'}}" == 'Año'? _.range({{$statisticYear}}-2,{{$statisticYear}}+3) :
           "{{$dateState??'null'}}" == 'Mes'? days : hours;
