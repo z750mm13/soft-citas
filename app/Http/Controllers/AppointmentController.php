@@ -30,7 +30,10 @@ class AppointmentController extends Controller {
         $statisticDate = $request->input('statisticDate');
         $dateState = $request->input('dateState');
         $statisticYear = $request->input('statisticYear');
-        if(!$statisticYear) $statisticYear = now()->format('Y');
+        if(!$statisticYear) {
+            $statisticYear = now()->format('Y');
+            if (!$statisticDate) $dateState = null;
+        }
         // Output chart data
         $data = array();
         if ($dateState == 'Dia') $data = $this->appointmentsDay($statisticDate);
