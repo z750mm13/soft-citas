@@ -24,7 +24,48 @@
     <a class="btn btn-sm btn-default" href="#" onclick="dateForm('excel')" role="button" data-toggle="modal" data-target="#generateDoc"><i class="far fa-file-excel"></i> Generar Excel</a>
   </div>
 
-    <div class="card mb-5 shadow">
+  <div class="accordion mb-5 shadow" id="statisticAccordion">
+    <div class="card">
+      <div class="card-header" id="chartArea">
+        <h2 class="mb-0">
+          <a class="btn btn-link btn-block text-decoration-none text-dark" type="button" data-toggle="collapse" data-target="#statistic" aria-expanded="true" aria-controls="collapseOne">
+            Estadísticas
+          </a>
+        </h2>
+      </div>
+  
+      <div id="statistic" class="collapse show" aria-labelledby="chartArea" data-parent="#statisticAccordion">
+        <div class="card">
+          <div class="card-body p-3">
+            <form action="{{route('consultations.index')}}" method="GET" id="updateChar">
+              @csrf
+              @method('GET')
+              <div class="form-group">
+                  <label for="dateState">Ver consultas por</label>
+                  <select class="form-control" id="dateState" name="dateState">
+                      <option selected>Seleccione el tipo</option>
+                      <option>Dia</option>
+                      <option>Mes</option>
+                      <option>Año</option>
+                  </select>
+              </div>
+              <div class="form-group">
+                <label for="inputDate">Fecha</label>
+                <input type="date" class="form-control" id="inputDate" name="statisticDate" aria-describedby="dateHelp" readonly>
+                <input type="number" id="statisticYear" name="statisticYear" class="form-control" min="1900" max="2099" step="1" value="{{now()->format('Y')}}" readonly/>
+              </div>
+            </form>
+            <button type="submit" class="btn btn-sm btn-primary" form="updateChar">Generar</button>
+            <div>
+              <canvas id="chart-line" height="400"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mb-5 shadow">
         <div class="card-body p-0">
             <div class="row m-4 align-items-center">
               <h5 class="card-title mb-0">Consultas</h5>
@@ -81,6 +122,63 @@
 @endsection
 
 @push('js')
+<script>
+  let consultationsChart = null;
+
+  window.onload = function() {
+    // Array of days of month
+    const days = ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'];
+    const hours = ['12:00am-2:59am', '3:00am-5:59am', '6:00am-8:59am', '9:00am-11:59am', '12:00pm-2:59pm', '3:00pm-5:59pm', '6:00pm-8:59pm', '9:00pm-11:59pm'];
+    const labels = "{{$dateState??'null'}}" == "null" || "{{$dateState??'null'}}" == 'Año'? _.range({{$statisticYear}}-2,{{$statisticYear}}+3) :
+          "{{$dateState??'null'}}" == 'Mes'? days : hours;
+    const data = {{ json_encode($data) }};
+
+    /**
+     * Making chart
+     */
+    const ctx = document.getElementById('chart-line');
+    consultationsChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [{
+          label: "{{$dateState??'Año'}} "+ ("{{$dateState??'null'}}" == 'Año'? "{{$statisticYear}}": "{{$statisticDate}}"),
+          data,
+          backgroundColor: 'rgba(157, 36, 73, 0.2)',
+          borderColor: 'rgba(157, 36, 73, 1)',
+          borderWidth: 2
+        }]
+      },
+      options: {
+        maintainAspectRatio: false,
+        responsive: true
+      }
+    });
+
+    /**
+     * Creacion de la funcio del formulario
+     */
+     $("#inputDate").hide();
+     $("#inputDate").attr("readonly",false);
+     $("#statisticYear").hide();
+     $("#statisticYear").attr("readonly",false);
+     $('#dateState').change(function() {
+          $("#inputDate").hide('fast');
+          $("#statisticYear").hide('fast');
+          $("#inputDate").val("");
+          $("#statisticYear").val("");
+          if (this.value==='Dia') {
+              $("#inputDate").attr("type","date");
+              $("#inputDate").show('fast');
+          } else if(this.value==='Mes'){
+              $("#inputDate").attr("type","month");
+              $("#inputDate").show('fast');
+          } else if(this.value==='Año'){
+              $("#statisticYear").show('fast');
+          }
+      })
+  };
+</script>
 <script>
   let consultations = [
       @foreach($consultations as $consultation){

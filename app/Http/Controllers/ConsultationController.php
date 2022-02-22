@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Consultation;
 use App\Appointment;
 use App\Medicine;
@@ -23,9 +24,79 @@ class ConsultationController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
+    public function index(Request $request) {
+        // Filter requests chart
+        $statisticDate = $request->input('statisticDate');
+        $dateState = $request->input('dateState');
+        $statisticYear = $request->input('statisticYear');
+        if(!$statisticYear) {
+            $statisticYear = now()->format('Y');
+            if (!$statisticDate) $dateState = null;
+        }
+        // Output chart data
+        $data = array();
+        if ($dateState == 'Dia') $data = $this->consultationsDay($statisticDate);
+        elseif ($dateState == 'Mes') $data = $this->consultationsMounth($statisticDate);
+        else $data = $this->consultationsYear($statisticYear);
+
         $consultations = Consultation::all();
-        return view('consultations.index', compact('consultations'));
+        return view('consultations.index', compact(
+            'consultations', 'statisticDate', 'dateState', 'statisticYear', 'data'
+        ));
+    }
+
+    /**
+     * Query to get report of days in array data format
+     * @param  String
+     * @return Array
+     */
+    private function consultationsDay($selectedDay = null) {
+        $consultations = null;
+        for ($starhour = 0; $starhour < 24; $starhour += 3) {
+            $nextAppointment = Consultation::select(DB::raw('count(id), '.$starhour.' as hour'))
+            ->where([
+                ['created_at', '>=', $selectedDay. ' ' .$starhour. ':00:00'],
+                ['created_at', '<',  $selectedDay. ' ' .($starhour + 3). ':00:00']
+            ]);
+            if ($starhour) $consultations = $nextAppointment->union($consultations);
+            else $consultations = $nextAppointment;
+        }
+        $consultations = $consultations->orderBy('hour')->get();
+        return $consultations->pluck('count');
+    }
+
+    /**
+     * Query to get report of mounth in array data format
+     * @param  String
+     * @return Array
+     */
+    private function consultationsMounth($selectedDay = null) {
+        $consultations = null;
+        foreach (range(0, 6) as $numberDay) {
+            $nextAppointment = Consultation::select(DB::raw('count(id), '.$numberDay.' as day'))
+            ->where(DB::raw("date_part('dow',created_at) = " .$numberDay. "and null"));
+            if ($numberDay) $consultations = $nextAppointment->union($consultations);
+            else $consultations = $nextAppointment;
+        }
+        $consultations = $consultations->orderBy('day')->get();
+        return $consultations->pluck('count');
+    }
+
+    /**
+     * Query to get report of mounth in array data format
+     * @param  String
+     * @return Array
+     */
+    private function consultationsYear($yearSelected) {// cuartos para gente sola
+        $consultations = null;
+        foreach (range($yearSelected-2, $yearSelected+2) as $index => $numberYear) {
+            $nextAppointment = Consultation::select(DB::raw('count(id), '.$numberYear.' as year'))
+            ->where('created_at','like', $numberYear.'%');
+            if ($index) $consultations = $nextAppointment->union($consultations);
+            else $consultations = $nextAppointment;
+        }
+        $consultations = $consultations->orderBy('year')->get();
+        return $consultations->pluck('count');
     }
 
     /**
