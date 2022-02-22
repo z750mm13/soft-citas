@@ -56,10 +56,18 @@ class AppointmentController extends Controller {
      * @return Array
      */
     private function appointmentsDay($selectedDay = null) {
-        $data = array(3, 1, 2, 5, 2, 6, 3, 4);
-        $appointments = Appointment::select(DB::raw('count(id)'))
-        ->where('datetime', 'like', $selectedDay.'%');
-        return $data;
+        $appointments = null;
+        for ($starhour = 0; $starhour < 24; $starhour += 3) {
+            $nextAppointment = Appointment::select(DB::raw('count(id), '.$starhour.' as hour'))
+            ->where([
+                ['datetime', '>=', $selectedDay. ' ' .$starhour. ':00:00'],
+                ['datetime', '<',  $selectedDay. ' ' .($starhour + 3). ':00:00']
+            ]);
+            if ($starhour) $appointments = $nextAppointment->union($appointments);
+            else $appointments = $nextAppointment;
+        }
+        $appointments = $appointments->orderBy('hour')->get();
+        return $appointments->pluck('count');
     }
 
     /**
