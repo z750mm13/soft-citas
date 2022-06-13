@@ -45,12 +45,12 @@
             <?php $line = 0; ?>
             @foreach($consultation->prescriptions as $prescription)
             <tr>
-                <th colspan="4"><b>{{$prescription->medicine->name}}</b>:</th>
+                <th colspan="4"><b>{{$prescription->medicine->name??null}}</b>:</th>
                 <?php $line++; ?>
             </tr>
             @if($prescription->dose || $prescription->description || $prescription->medicine->details )
             <tr>
-                <th>{{$prescription->dose}}{{$prescription->description?', '.$prescription->description:''}}{{$prescription->medicine->details?', '.$prescription->medicine->details:''}}.</th>
+                <th>{{$prescription->dose}}{{$prescription->description?', '.$prescription->description:''}}{{$prescription->medicine->details??null?', '.$prescription->medicine->details??null:''}}.</th>
                 <?php $line++; ?>
             </tr>
             @endif
