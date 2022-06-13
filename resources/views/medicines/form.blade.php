@@ -62,6 +62,18 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <label for="details" class="col-md-4 col-form-label text-md-right">Descripción</label>
+                        <div class="col-md-6">
+                            <textarea class="form-control @error('details') is-invalid @enderror" id="details" name="details" rows="3" value="{{ old('details') }}" required autocomplete="details" autofocus></textarea>
+                            @error('details')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+
                 </form>
             </div>
             <div class="modal-footer">

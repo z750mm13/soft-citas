@@ -11,7 +11,7 @@ class Medicine extends Model {
      * @var array
      */
     protected $fillable = [
-        'name','expiration','barcode','stock',
+        'name','expiration','barcode','stock','details'
     ];
 
     /**

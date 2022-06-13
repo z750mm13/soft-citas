@@ -12,6 +12,7 @@ class MedicineController extends Controller {
 
     function __construct() {
         $this->middleware('auth');
+        $this->middleware('medicine.exists')->only(['store']);
     }
     /**
      * Display a listing of the resource. Das medicine.

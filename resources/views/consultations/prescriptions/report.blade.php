@@ -48,9 +48,9 @@
                 <th colspan="4"><b>{{$prescription->medicine->name}}</b>:</th>
                 <?php $line++; ?>
             </tr>
-            @if($prescription->dose || $prescription->description)
+            @if($prescription->dose || $prescription->description || $prescription->medicine->details )
             <tr>
-                <th>{{$prescription->dose}}{{$prescription->description?', '.$prescription->description:''}}.</th>
+                <th>{{$prescription->dose}}{{$prescription->description?', '.$prescription->description:''}}{{$prescription->medicine->details?', '.$prescription->medicine->details:''}}.</th>
                 <?php $line++; ?>
             </tr>
             @endif

@@ -59,6 +59,7 @@
                         <th scope="col">Caducidad</th>
                         <th scope="col">Codigo de barras</th>
                         <th scope="col">Stock</th>
+                        <th scope="col">Descripción</th>
                         <th scope="col"></th>
                       </tr>
                     </thead>
@@ -69,6 +70,7 @@
                         <td @if($medicine->expiration->lte( now() ))class="font-weight-bold text-danger"@endif>{{$medicine->expiration->format('d/m/Y')}}</td>
                         <td>{{$medicine->barcode}}</td>
                         <td>{{$medicine->stock}}</td>
+                        <td>{{$medicine->details}}</td>
                         <td>
                           <div class="dropdown">
                               <button class="btn btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -106,6 +108,7 @@
         "name":"{{$medicine->name}}",
         "expiration":"{{$medicine->expiration}}",
         "barcode":"{{$medicine->barcode}}",
+        "details":"{{$medicine->details}}",
         "stock":{{$medicine->stock}}
       },
       @endforeach
@@ -116,6 +119,7 @@
         $("#expiration").val(medicines[id].expiration);
         $("#barcode").val(medicines[id].barcode);
         $("#stock").val(medicines[id].stock);
+        $("#details").val(medicines[id].details);
         $("#method").val("PUT");
   }
   function clearFields(){
@@ -124,6 +128,7 @@
         $("#expiration").val("");
         $("#barcode").val("");
         $("#stock").val("");
+        $("#details").val("");
         $("#method").val("POST");
   }
   function deleteElement(id) {

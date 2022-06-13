@@ -147,6 +147,7 @@
                 </div>
             </div>
         </footer>
+        @include('messages.success')
     </div>
     @stack('js')
 </body>
