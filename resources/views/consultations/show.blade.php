@@ -44,7 +44,7 @@
                 <hr class="red mb-5">
             </div>
             @foreach($consultation->prescriptions as $prescription)
-            <p class="card-text text-justify"><b>{{$prescription->medicine->name}}:</b> {{$prescription->dose}}{{$prescription->description?', '.$prescription->description:''}}{{$prescription->medicine->details?', '.$prescription->medicine->details:''}}.</p>
+            <p class="card-text text-justify"><b>{{isset($prescription->medicine->name)??''}}:</b> {{$prescription->dose}}{{$prescription->description?', '.$prescription->description:''}}{{$prescription->medicine->details?', '.$prescription->medicine->details:''}}.</p>
             @endforeach
             @endif
         </div>
