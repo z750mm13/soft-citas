@@ -8,6 +8,7 @@
     ],
     "license": "MIT",
     "require": {
+        "silex/silex": "~1.1",
         "php": "8.0.13",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
